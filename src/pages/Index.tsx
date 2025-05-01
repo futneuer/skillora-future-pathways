@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, Lightbulb, LineChart } from "lucide-react";
+import { BookOpen, LineChart, Brain } from "lucide-react";
 import BottomNavbar from "@/components/BottomNavbar";
 import ActionButton from "@/components/ActionButton";
 import SkillCard from "@/components/SkillCard";
@@ -42,16 +42,19 @@ const Index = () => {
             text="ابدأ التقييم" 
             to="/assessment" 
             variant="primary"
+            icon={<Brain size={24} />}
           />
           <ActionButton 
             text="استكشاف المهارات" 
             to="/skills" 
             variant="accent"
+            icon={<BookOpen size={24} />}
           />
           <ActionButton 
             text="خطط لمستقبلك" 
             to="/planning" 
             variant="success"
+            icon={<LineChart size={24} />}
           />
         </div>
       </section>

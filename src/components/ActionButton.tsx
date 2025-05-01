@@ -35,8 +35,8 @@ const ActionButton = ({
         className
       )}
     >
-      {text}
-      {icon && <span>{icon}</span>}
+      {icon && <span className="text-lg">{icon}</span>}
+      <span>{text}</span>
     </Link>
   );
 };
