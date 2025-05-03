@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, LoaderCircle } from "lucide-react";
@@ -61,7 +60,7 @@ const Assessment = () => {
     }
   }, [selectedOptions, currentQuestionIndex, isStarted]);
 
-  // Sample questions data - expanded with more questions
+  // Extended questions data - now 35 questions
   const questions: Question[] = [
     {
       id: 1,
@@ -158,6 +157,330 @@ const Assessment = () => {
         { id: "h3", text: language === 'ar' ? "الصحة والرعاية" : "Health and care" },
         { id: "h4", text: language === 'ar' ? "الفنون والتصميم" : "Arts and design" }
       ]
+    },
+    {
+      id: 9,
+      text: language === 'ar'
+        ? "عند تعلم تقنية جديدة، أنا أميل إلى:"
+        : "When learning a new technology, I tend to:",
+      options: [
+        { id: "i1", text: language === 'ar' ? "فهم الأساسيات النظرية أولاً" : "Understand theoretical foundations first" },
+        { id: "i2", text: language === 'ar' ? "التطبيق العملي المباشر" : "Jump directly into practical application" },
+        { id: "i3", text: language === 'ar' ? "مشاهدة دروس فيديو تعليمية" : "Watch video tutorials" },
+        { id: "i4", text: language === 'ar' ? "النقاش مع خبراء في المجال" : "Discuss with experts in the field" }
+      ]
+    },
+    {
+      id: 10,
+      text: language === 'ar'
+        ? "في العمل الجماعي، دوري غالبا هو:"
+        : "In teamwork, my role is often:",
+      options: [
+        { id: "j1", text: language === 'ar' ? "قائد يحدد الاتجاه" : "Leader who sets direction" },
+        { id: "j2", text: language === 'ar' ? "مبدع يقدم أفكارا جديدة" : "Creative who brings new ideas" },
+        { id: "j3", text: language === 'ar' ? "منظم يحافظ على سير العمل" : "Organizer who keeps things on track" },
+        { id: "j4", text: language === 'ar' ? "وسيط يساعد في حل النزاعات" : "Mediator who helps resolve conflicts" }
+      ]
+    },
+    {
+      id: 11,
+      text: language === 'ar'
+        ? "عند مواجهة مهمة صعبة، أنا غالبا:"
+        : "When facing a difficult task, I usually:",
+      options: [
+        { id: "k1", text: language === 'ar' ? "أبحث عن موارد ومراجع للمساعدة" : "Look for resources and references to help" },
+        { id: "k2", text: language === 'ar' ? "أستعين بخبرة زملائي" : "Draw on colleagues' expertise" },
+        { id: "k3", text: language === 'ar' ? "أعتمد على خبرتي السابقة" : "Rely on my previous experience" },
+        { id: "k4", text: language === 'ar' ? "أجرب حلولا مبتكرة" : "Try innovative solutions" }
+      ]
+    },
+    {
+      id: 12,
+      text: language === 'ar'
+        ? "أفضل نوع من التغذية الراجعة هو:"
+        : "My preferred type of feedback is:",
+      options: [
+        { id: "l1", text: language === 'ar' ? "مباشر وصريح" : "Direct and straightforward" },
+        { id: "l2", text: language === 'ar' ? "إيجابي ومشجع" : "Positive and encouraging" },
+        { id: "l3", text: language === 'ar' ? "تفصيلي مع اقتراحات للتحسين" : "Detailed with suggestions for improvement" },
+        { id: "l4", text: language === 'ar' ? "من خلال مناقشة الأفكار" : "Through discussion of ideas" }
+      ]
+    },
+    {
+      id: 13,
+      text: language === 'ar'
+        ? "في حل المشكلات التقنية، أنا أميل إلى:"
+        : "In solving technical problems, I tend to:",
+      options: [
+        { id: "m1", text: language === 'ar' ? "البحث عن الأنماط والأسباب الجذرية" : "Look for patterns and root causes" },
+        { id: "m2", text: language === 'ar' ? "تجربة حلول مختلفة بسرعة" : "Quickly try different solutions" },
+        { id: "m3", text: language === 'ar' ? "اتباع منهجية منظمة" : "Follow a systematic methodology" },
+        { id: "m4", text: language === 'ar' ? "البحث عن حلول غير تقليدية" : "Search for unconventional solutions" }
+      ]
+    },
+    {
+      id: 14,
+      text: language === 'ar'
+        ? "أنا أجد سعادة أكبر في:"
+        : "I find greater satisfaction in:",
+      options: [
+        { id: "n1", text: language === 'ar' ? "إنجاز المهام وتحقيق الأهداف" : "Completing tasks and achieving goals" },
+        { id: "n2", text: language === 'ar' ? "تطوير علاقات وشبكات مهنية" : "Developing professional relationships and networks" },
+        { id: "n3", text: language === 'ar' ? "تعلم مهارات جديدة" : "Learning new skills" },
+        { id: "n4", text: language === 'ar' ? "حل مشكلات معقدة" : "Solving complex problems" }
+      ]
+    },
+    {
+      id: 15,
+      text: language === 'ar'
+        ? "أواجه الضغط والتوتر عن طريق:"
+        : "I handle pressure and stress by:",
+      options: [
+        { id: "o1", text: language === 'ar' ? "التنظيم والتخطيط المسبق" : "Organization and advance planning" },
+        { id: "o2", text: language === 'ar' ? "التحدث مع الآخرين وطلب الدعم" : "Talking to others and seeking support" },
+        { id: "o3", text: language === 'ar' ? "أخذ فترات راحة قصيرة" : "Taking short breaks" },
+        { id: "o4", text: language === 'ar' ? "التركيز على حل المشكلة مباشرة" : "Focusing directly on solving the problem" }
+      ]
+    },
+    {
+      id: 16,
+      text: language === 'ar'
+        ? "عند تقديم عرض تقديمي، أنا أميل إلى:"
+        : "When giving a presentation, I tend to:",
+      options: [
+        { id: "p1", text: language === 'ar' ? "التركيز على الحقائق والبيانات" : "Focus on facts and data" },
+        { id: "p2", text: language === 'ar' ? "سرد قصص مؤثرة" : "Tell impactful stories" },
+        { id: "p3", text: language === 'ar' ? "استخدام الرسوم البيانية والمرئيات" : "Use charts and visuals" },
+        { id: "p4", text: language === 'ar' ? "التفاعل مع الجمهور" : "Interact with the audience" }
+      ]
+    },
+    {
+      id: 17,
+      text: language === 'ar'
+        ? "أي مجال من هذه المجالات يثير اهتمامك أكثر؟"
+        : "Which of these fields interests you most?",
+      options: [
+        { id: "q1", text: language === 'ar' ? "الذكاء الاصطناعي وتعلم الآلة" : "Artificial Intelligence and Machine Learning" },
+        { id: "q2", text: language === 'ar' ? "تطوير الأعمال والتسويق" : "Business Development and Marketing" },
+        { id: "q3", text: language === 'ar' ? "تجربة المستخدم والتصميم" : "User Experience and Design" },
+        { id: "q4", text: language === 'ar' ? "التعليم والتدريب" : "Education and Training" }
+      ]
+    },
+    {
+      id: 18,
+      text: language === 'ar'
+        ? "عندما أبدأ مشروعاً جديداً، أول شيء أفكر فيه هو:"
+        : "When starting a new project, the first thing I think about is:",
+      options: [
+        { id: "r1", text: language === 'ar' ? "خطة العمل والجدول الزمني" : "Work plan and timeline" },
+        { id: "r2", text: language === 'ar' ? "الفكرة الإبداعية والرؤية" : "Creative concept and vision" },
+        { id: "r3", text: language === 'ar' ? "تكوين الفريق المناسب" : "Assembling the right team" },
+        { id: "r4", text: language === 'ar' ? "المخاطر المحتملة وكيفية تجنبها" : "Potential risks and how to avoid them" }
+      ]
+    },
+    {
+      id: 19,
+      text: language === 'ar'
+        ? "أي نوع من بيئات العمل تفضل؟"
+        : "Which type of work environment do you prefer?",
+      options: [
+        { id: "s1", text: language === 'ar' ? "مكتب تقليدي منظم" : "Traditional organized office" },
+        { id: "s2", text: language === 'ar' ? "مساحة عمل مشتركة مرنة" : "Flexible coworking space" },
+        { id: "s3", text: language === 'ar' ? "العمل عن بعد من المنزل" : "Remote work from home" },
+        { id: "s4", text: language === 'ar' ? "بيئة عمل مختلطة" : "Hybrid work environment" }
+      ]
+    },
+    {
+      id: 20,
+      text: language === 'ar'
+        ? "في مجال الابتكار، أنا أفضل:"
+        : "In the field of innovation, I prefer:",
+      options: [
+        { id: "t1", text: language === 'ar' ? "تحسين المنتجات والخدمات الحالية" : "Improving existing products and services" },
+        { id: "t2", text: language === 'ar' ? "ابتكار حلول جذرية جديدة" : "Inventing radical new solutions" },
+        { id: "t3", text: language === 'ar' ? "دمج الأفكار من مجالات مختلفة" : "Combining ideas from different fields" },
+        { id: "t4", text: language === 'ar' ? "تطبيق التكنولوجيا لحل مشكلات اجتماعية" : "Applying technology to solve social problems" }
+      ]
+    },
+    {
+      id: 21,
+      text: language === 'ar'
+        ? "عند قراءة محتوى جديد، أفضل أن يكون:"
+        : "When consuming new content, I prefer it to be:",
+      options: [
+        { id: "u1", text: language === 'ar' ? "نصوص مكتوبة مفصلة" : "Detailed written text" },
+        { id: "u2", text: language === 'ar' ? "فيديوهات تعليمية" : "Video tutorials" },
+        { id: "u3", text: language === 'ar' ? "رسوم بيانية وإنفوجرافيك" : "Charts and infographics" },
+        { id: "u4", text: language === 'ar' ? "محتوى تفاعلي" : "Interactive content" }
+      ]
+    },
+    {
+      id: 22,
+      text: language === 'ar'
+        ? "ما هي المهارات التي تود تطويرها أكثر؟"
+        : "Which skills would you like to develop more?",
+      options: [
+        { id: "v1", text: language === 'ar' ? "المهارات التقنية والرقمية" : "Technical and digital skills" },
+        { id: "v2", text: language === 'ar' ? "مهارات التواصل والقيادة" : "Communication and leadership skills" },
+        { id: "v3", text: language === 'ar' ? "التفكير النقدي وحل المشكلات" : "Critical thinking and problem-solving" },
+        { id: "v4", text: language === 'ar' ? "الإبداع والابتكار" : "Creativity and innovation" }
+      ]
+    },
+    {
+      id: 23,
+      text: language === 'ar'
+        ? "كيف تفضل التفاعل مع زملائك؟"
+        : "How do you prefer to interact with colleagues?",
+      options: [
+        { id: "w1", text: language === 'ar' ? "اجتماعات رسمية منظمة" : "Formal structured meetings" },
+        { id: "w2", text: language === 'ar' ? "نقاشات غير رسمية" : "Informal discussions" },
+        { id: "w3", text: language === 'ar' ? "منصات التواصل الرقمية" : "Digital communication platforms" },
+        { id: "w4", text: language === 'ar' ? "مزيج من كل ما سبق" : "A mix of all the above" }
+      ]
+    },
+    {
+      id: 24,
+      text: language === 'ar'
+        ? "أي نوع من التحديات يجذبك أكثر؟"
+        : "What type of challenges attracts you more?",
+      options: [
+        { id: "x1", text: language === 'ar' ? "تحديات تقنية معقدة" : "Complex technical challenges" },
+        { id: "x2", text: language === 'ar' ? "تحديات إدارية وتنظيمية" : "Administrative and organizational challenges" },
+        { id: "x3", text: language === 'ar' ? "تحديات إبداعية وتصميمية" : "Creative and design challenges" },
+        { id: "x4", text: language === 'ar' ? "تحديات اجتماعية وإنسانية" : "Social and humanitarian challenges" }
+      ]
+    },
+    {
+      id: 25,
+      text: language === 'ar'
+        ? "عند العمل على مشروع، ما الذي يحفزك أكثر؟"
+        : "When working on a project, what motivates you the most?",
+      options: [
+        { id: "y1", text: language === 'ar' ? "الاعتراف بجهودك ومساهماتك" : "Recognition of your efforts and contributions" },
+        { id: "y2", text: language === 'ar' ? "تحقيق نتائج ملموسة" : "Achieving tangible results" },
+        { id: "y3", text: language === 'ar' ? "تعلم مهارات جديدة" : "Learning new skills" },
+        { id: "y4", text: language === 'ar' ? "العمل ضمن فريق متناغم" : "Working within a harmonious team" }
+      ]
+    },
+    {
+      id: 26,
+      text: language === 'ar'
+        ? "كيف تتعامل مع التغيير المفاجئ في خطط العمل؟"
+        : "How do you handle sudden changes in work plans?",
+      options: [
+        { id: "z1", text: language === 'ar' ? "أتكيف بسرعة وأعيد التخطيط" : "Adapt quickly and replan" },
+        { id: "z2", text: language === 'ar' ? "أحاول فهم أسباب التغيير أولاً" : "Try to understand the reasons for change first" },
+        { id: "z3", text: language === 'ar' ? "أشعر بالإحباط لكنني أتقبله" : "Feel frustrated but accept it" },
+        { id: "z4", text: language === 'ar' ? "أقترح بدائل وحلول" : "Suggest alternatives and solutions" }
+      ]
+    },
+    {
+      id: 27,
+      text: language === 'ar'
+        ? "ما نوع المشاريع التي تستمتع بها أكثر؟"
+        : "What type of projects do you enjoy the most?",
+      options: [
+        { id: "aa1", text: language === 'ar' ? "مشاريع تتطلب حلول تقنية مبتكرة" : "Projects requiring innovative technical solutions" },
+        { id: "aa2", text: language === 'ar' ? "مشاريع تركز على تحسين تجربة المستخدم" : "Projects focusing on improving user experience" },
+        { id: "aa3", text: language === 'ar' ? "مشاريع تساعد في حل مشكلات اجتماعية" : "Projects that help solve social problems" },
+        { id: "aa4", text: language === 'ar' ? "مشاريع تحقق عائد استثماري ملم��س" : "Projects that achieve tangible ROI" }
+      ]
+    },
+    {
+      id: 28,
+      text: language === 'ar'
+        ? "كيف تتعلم مهارة جديدة بشكل أفضل؟"
+        : "How do you best learn a new skill?",
+      options: [
+        { id: "bb1", text: language === 'ar' ? "من خلال دورات تدريبية منظمة" : "Through structured training courses" },
+        { id: "bb2", text: language === 'ar' ? "بالتطبيق العملي المباشر" : "By direct practical application" },
+        { id: "bb3", text: language === 'ar' ? "من خلال مراقبة الخبراء" : "By observing experts" },
+        { id: "bb4", text: language === 'ar' ? "من خلال القراءة والبحث الذاتي" : "Through reading and self-research" }
+      ]
+    },
+    {
+      id: 29,
+      text: language === 'ar'
+        ? "ما هي قيمة العمل الأكثر أهمية بالنسبة لك؟"
+        : "What work value is most important to you?",
+      options: [
+        { id: "cc1", text: language === 'ar' ? "الasticallyالية وحرية اتخاذ القرار" : "Autonomy and freedom of decision-making" },
+        { id: "cc2", text: language === 'ar' ? "الإبداع والابتكار" : "Creativity and innovation" },
+        { id: "cc3", text: language === 'ar' ? "الأمان الوظيفي والاستقرار" : "Job security and stability" },
+        { id: "cc4", text: language === 'ar' ? "التأثير الإيجابي على المجتمع" : "Positive impact on society" }
+      ]
+    },
+    {
+      id: 30,
+      text: language === 'ar'
+        ? "عند مواجهة تحدي كبير، كيف تستجيب عادة؟"
+        : "When facing a major challenge, how do you typically respond?",
+      options: [
+        { id: "dd1", text: language === 'ar' ? "أضع خطة منهجية للتعامل معه" : "Create a systematic plan to deal with it" },
+        { id: "dd2", text: language === 'ar' ? "أبحث عن مساعدة ودعم من الآخرين" : "Seek help and support from others" },
+        { id: "dd3", text: language === 'ar' ? "أستخدم خبراتي السابقة في مواقف مشابهة" : "Use my previous experiences in similar situations" },
+        { id: "dd4", text: language === 'ar' ? "أبتكر حلولاً غير تقليدية" : "Create unconventional solutions" }
+      ]
+    },
+    {
+      id: 31,
+      text: language === 'ar'
+        ? "في العمل الجماعي، أنا أقدر زملائي الذين:"
+        : "In teamwork, I value colleagues who:",
+      options: [
+        { id: "ee1", text: language === 'ar' ? "يقدمون أفكاراً مبتكرة" : "Offer innovative ideas" },
+        { id: "ee2", text: language === 'ar' ? "يلتزمون بالمواعيد ويوفون بوعودهم" : "Meet deadlines and keep promises" },
+        { id: "ee3", text: language === 'ar' ? "يساعدون الآخرين ويقدمون الدعم" : "Help others and provide support" },
+        { id: "ee4", text: language === 'ar' ? "يتكيفون مع المتغيرات بمرونة" : "Adapt to changes flexibly" }
+      ]
+    },
+    {
+      id: 32,
+      text: language === 'ar'
+        ? "ما الذي يميزك عن الآخرين في بيئة العمل؟"
+        : "What sets you apart from others in the work environment?",
+      options: [
+        { id: "ff1", text: language === 'ar' ? "الاهتمام بالتفاصيل والدقة" : "Attention to detail and accuracy" },
+        { id: "ff2", text: language === 'ar' ? "المهارات القيادية والتنظيمية" : "Leadership and organizational skills" },
+        { id: "ff3", text: language === 'ar' ? "التفكير الإبداعي وحل المشكلات" : "Creative thinking and problem-solving" },
+        { id: "ff4", text: language === 'ar' ? "مهارات الت��اصل والعمل الجماعي" : "Communication and teamwork skills" }
+      ]
+    },
+    {
+      id: 33,
+      text: language === 'ar'
+        ? "أي مجال من هذه المجالات ترغب في النمو فيه مهنياً؟"
+        : "In which of these areas do you want to grow professionally?",
+      options: [
+        { id: "gg1", text: language === 'ar' ? "تطوير المهارات الإدارية والقيادية" : "Developing management and leadership skills" },
+        { id: "gg2", text: language === 'ar' ? "تعميق المعرفة التقنية" : "Deepening technical knowledge" },
+        { id: "gg3", text: language === 'ar' ? "تحسين مهارات الإبداع والابتكار" : "Improving creativity and innovation skills" },
+        { id: "gg4", text: language === 'ar' ? "بناء شبكة علاقات مهنية أوسع" : "Building a wider professional network" }
+      ]
+    },
+    {
+      id: 34,
+      text: language === 'ar'
+        ? "عند اتخاذ قرار مهني مهم، ما الذي تأخذه بعين الاعتبار أولاً؟"
+        : "When making an important career decision, what do you consider first?",
+      options: [
+        { id: "hh1", text: language === 'ar' ? "فرص النمو والتطور المهني" : "Growth opportunities and professional development" },
+        { id: "hh2", text: language === 'ar' ? "العائد المادي والمزايا" : "Financial return and benefits" },
+        { id: "hh3", text: language === 'ar' ? "التوازن بين العمل والحياة الشخصية" : "Work-life balance" },
+        { id: "hh4", text: language === 'ar' ? "بيئة العمل وثقافة المؤسسة" : "Work environment and organizational culture" }
+      ]
+    },
+    {
+      id: 35,
+      text: language === 'ar'
+        ? "ما هو هدفك المهني على المدى الطويل؟"
+        : "What is your long-term career goal?",
+      options: [
+        { id: "ii1", text: language === 'ar' ? "أن أصبح خبيراً متخصصاً في مجالي" : "Become a specialized expert in my field" },
+        { id: "ii2", text: language === 'ar' ? "أن أشغل منصباً قيادياً" : "Hold a leadership position" },
+        { id: "ii3", text: language === 'ar' ? "أن أبدأ مشروعي الخاص" : "Start my own business" },
+        { id: "ii4", text: language === 'ar' ? "أن أحدث تأثيراً إيجابياً في مجال عملي" : "Make a positive impact in my field" }
+      ]
     }
   ];
 
@@ -188,46 +511,94 @@ const Assessment = () => {
         'creative': 0,
         'collaborative': 0,
         'technical': 0,
-        'leadership': 0
+        'leadership': 0,
+        'business': 0,
+        'design': 0,
+        'communication': 0
       };
       
-      // Very simplified algorithm - in reality would be more sophisticated
+      // Enhanced algorithm to process the expanded question set
       Object.entries(selectedOptions).forEach(([questionIndex, optionId]) => {
         const qIndex = parseInt(questionIndex);
         
-        // Based on first character of option ID
+        // First character of option ID gives skill category
         const optionType = optionId.charAt(0);
         
-        if (optionType === 'a' || optionType === 'd') skillScores.analytical += 10;
-        if (optionType === 'b' || optionType === 'f') skillScores.technical += 10;
-        if (optionType === 'c' || optionType === 'g') skillScores.collaborative += 10;
-        if (optionType === 'e') skillScores.leadership += 10;
+        // Technical skills
+        if (['a', 'd', 'm', 'q', 'x'].includes(optionType)) skillScores.technical += 5;
         
-        // Option number (1-4)
-        const optionNumber = parseInt(optionId.charAt(1));
-        if (optionNumber === 4) skillScores.creative += 15;
-        if (optionNumber === 3) skillScores.collaborative += 5;
-        if (optionNumber === 2) skillScores.analytical += 5;
-        if (optionNumber === 1) skillScores.technical += 5;
+        // Analytical skills
+        if (['a', 'd', 'k', 'dd', 'ff'].includes(optionType)) skillScores.analytical += 5;
+        
+        // Creative skills
+        if (['r', 't', 'v', 'cc', 'ee'].includes(optionType)) skillScores.creative += 5;
+        
+        // Collaborative skills
+        if (['c', 'g', 'j', 'w', 'ee'].includes(optionType)) skillScores.collaborative += 5;
+        
+        // Leadership skills
+        if (['e', 'j', 'p', 'gg', 'hh'].includes(optionType)) skillScores.leadership += 5;
+        
+        // Business skills
+        if (['h', 'n', 'q', 'aa', 'ii'].includes(optionType)) skillScores.business += 5;
+        
+        // Design skills
+        if (['f', 'q', 't', 'u', 'aa'].includes(optionType)) skillScores.design += 5;
+        
+        // Communication skills
+        if (['p', 'v', 'w', 'ff', 'gg'].includes(optionType)) skillScores.communication += 5;
+        
+        // Option number (1-4) adds additional points to specific skills
+        const optionNumber = parseInt(optionId.substring(1));
+        if (optionNumber === 1) {
+          skillScores.analytical += 3;
+          skillScores.technical += 2;
+        }
+        if (optionNumber === 2) {
+          skillScores.creative += 3;
+          skillScores.business += 2;
+        }
+        if (optionNumber === 3) {
+          skillScores.collaborative += 3;
+          skillScores.communication += 2;
+        }
+        if (optionNumber === 4) {
+          skillScores.leadership += 3;
+          skillScores.design += 2;
+        }
+      });
+      
+      // Normalize scores to percentages
+      Object.keys(skillScores).forEach(skill => {
+        const raw = skillScores[skill];
+        // Maximum possible score would be questions.length * (base points + bonus points)
+        const normalizedScore = Math.min(Math.round((raw / (questions.length * 8)) * 100), 100);
+        skillScores[skill] = normalizedScore;
       });
       
       // Determine recommended paths based on highest scores
       const sortedSkills = Object.entries(skillScores).sort((a, b) => b[1] - a[1]);
-      const topSkills = sortedSkills.slice(0, 2).map(skill => skill[0]);
+      const topSkills = sortedSkills.slice(0, 3).map(skill => skill[0]);
       
-      // Map skills to career paths
+      // Map skills to expanded career paths
       const recommendedPaths = topSkills.map(skill => {
         switch(skill) {
           case 'analytical':
-            return language === 'ar' ? 'محلل بيانات' : 'Data Analyst';
+            return language === 'ar' ? 'محلل بيانات / باحث / مخطط استراتيجي' : 'Data Analyst / Researcher / Strategic Planner';
           case 'creative':
-            return language === 'ar' ? 'مصمم تجربة مستخدم' : 'UX Designer';
+            return language === 'ar' ? 'مصمم تجربة مستخدم / مدير إبداعي / مبتكر منتجات' : 'UX Designer / Creative Director / Product Innovator';
           case 'collaborative':
-            return language === 'ar' ? 'مدير مشاريع' : 'Project Manager';
+            return language === 'ar' ? 'مدير مشاريع / منسق فرق / مستشار موارد بشرية' : 'Project Manager / Team Coordinator / HR Consultant';
           case 'technical':
-            return language === 'ar' ? 'مطور برمجيات' : 'Software Developer';
+            return language === 'ar' ? 'مطور برمجيات / مهندس بيانات / محلل نظم' : 'Software Developer / Data Engineer / Systems Analyst';
           case 'leadership':
-            return language === 'ar' ? 'قائد فريق تقني' : 'Technical Team Lead';
+            return language === 'ar' ? 'مدير تنفيذي / قائد فريق تقني / مدير مشاريع' : 'Executive Manager / Technical Team Lead / Project Director';
+          case 'business':
+            return language === 'ar' ? 'محلل أعمال / مدير تسويق / مطور أعمال' : 'Business Analyst / Marketing Manager / Business Developer';
+          case 'design':
+            return language === 'ar' ? 'مصمم واجهات / مدير فني / مصمم منتجات' : 'UI Designer / Art Director / Product Designer';
+          case 'communication':
+            return language === 'ar' ? 'مدير علاقات عامة / مسؤول تواصل / مدرب مهني' : 'PR Manager / Communications Officer / Professional Trainer';
           default:
             return language === 'ar' ? 'متخصص تقني' : 'Technology Specialist';
         }
@@ -263,11 +634,11 @@ const Assessment = () => {
       home: "الرئيسية",
       assessmentIntro: "اكتشف مهاراتك ومستقبلك المهني",
       assessmentDesc: "سيساعدك هذا التقييم على فهم نقاط قوتك واهتماماتك، واقتراح المسارات التعليمية والمهنية التي تناسبك.",
-      step1: "15 سؤال قصير لتحليل مهاراتك واهتماماتك.",
+      step1: "35 سؤال قصير لتحليل مهاراتك واهتماماتك.",
       step2: "تحليل متقدم بالذكاء الاصطناعي لتحديد نقاط قوتك.",
       step3: "توصيات مخصصة للمسارات التعليمية والمهنية.",
       startButton: "ابدأ التقييم الآن",
-      estimatedTime: "الوقت المقدر: 5-7 دقائق",
+      estimatedTime: "الوقت المقدر: 10-15 دقيقة",
       processing: "جاري معالجة إجاباتك...",
       resultTitle: "نتائج التقييم",
       yourStrengths: "نقاط قوتك",
@@ -280,11 +651,11 @@ const Assessment = () => {
       home: "Home",
       assessmentIntro: "Discover Your Skills and Career Future",
       assessmentDesc: "This assessment will help you understand your strengths and interests, and suggest educational and career paths that suit you.",
-      step1: "15 short questions to analyze your skills and interests.",
+      step1: "35 short questions to analyze your skills and interests.",
       step2: "Advanced AI analysis to identify your strengths.",
       step3: "Personalized recommendations for educational and career paths.",
       startButton: "Start Assessment Now",
-      estimatedTime: "Estimated time: 5-7 minutes",
+      estimatedTime: "Estimated time: 10-15 minutes",
       processing: "Processing your answers...",
       resultTitle: "Assessment Results",
       yourStrengths: "Your Strengths",
@@ -361,7 +732,10 @@ const Assessment = () => {
                           skill === 'analytical' ? 'التحليلية' : 
                           skill === 'creative' ? 'الإبداع' : 
                           skill === 'collaborative' ? 'التعاون' : 
-                          skill === 'technical' ? 'التقنية' : 'القيادة'
+                          skill === 'technical' ? 'التقنية' : 
+                          skill === 'leadership' ? 'القيادة' :
+                          skill === 'business' ? 'الأعمال' :
+                          skill === 'design' ? 'التصميم' : 'التواصل'
                           : 
                           skill}
                       </span>
@@ -372,7 +746,8 @@ const Assessment = () => {
                         className={`h-2.5 rounded-full ${
                           index === 0 ? 'bg-skillora-blue' : 
                           index === 1 ? 'bg-skillora-green' : 
-                          'bg-skillora-orange'
+                          index === 2 ? 'bg-skillora-orange' :
+                          'bg-blue-400'
                         }`}
                         style={{ width: `${score}%` }}
                       ></div>
@@ -386,7 +761,9 @@ const Assessment = () => {
               {result.recommendedPaths.map((path, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <div className={`w-2 h-2 rounded-full ${
-                    index === 0 ? 'bg-skillora-blue' : 'bg-skillora-green'
+                    index === 0 ? 'bg-skillora-blue' : 
+                    index === 1 ? 'bg-skillora-green' : 
+                    'bg-skillora-orange'
                   }`}></div>
                   <span className="dark:text-white">{path}</span>
                 </div>
@@ -397,9 +774,11 @@ const Assessment = () => {
               <Button variant="outline" onClick={resetAssessment}>
                 {currentContent.startNew}
               </Button>
-              <Button as={Link} to="/courses">
-                {currentContent.exploreCourses}
-              </Button>
+              <Link to="/courses">
+                <Button className="w-full">
+                  {currentContent.exploreCourses}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

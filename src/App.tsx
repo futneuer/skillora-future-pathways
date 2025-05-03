@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import AppInstaller from "./components/AppInstaller";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,11 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
+              <div className="fixed bottom-20 left-4 right-4 z-50 pointer-events-none">
+                <div className="pointer-events-auto">
+                  <AppInstaller />
+                </div>
+              </div>
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/assessment" element={<Assessment />} />
