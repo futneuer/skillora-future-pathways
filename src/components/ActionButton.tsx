@@ -21,9 +21,9 @@ const ActionButton = ({
   const baseClasses = "w-full flex items-center justify-center gap-2 text-lg py-4 px-6 rounded-xl font-bold transition-all shadow-md hover:shadow-lg";
   
   const variantClasses = {
-    primary: "bg-skillora-blue text-white hover:bg-blue-700",
-    accent: "bg-skillora-orange text-white hover:bg-orange-700",
-    success: "bg-skillora-green text-white hover:bg-green-700"
+    primary: "bg-skillora-blue text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800",
+    accent: "bg-skillora-orange text-white hover:bg-orange-700 dark:bg-orange-700 dark:hover:bg-orange-800",
+    success: "bg-skillora-green text-white hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800"
   };
 
   return (
