@@ -1,93 +1,187 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import ActionButton from "@/components/ActionButton";
+import Header from "@/components/Header";
 import BottomNavbar from "@/components/BottomNavbar";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getLanguageContent } from "@/data/languageContent";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BookOpen, Briefcase, Clock, Award } from "lucide-react";
 
 const Planning = () => {
-  return (
-    <div className="min-h-screen bg-gray-50 pb-20">
-      {/* Header with back button */}
-      <header className="bg-white p-4 shadow-sm flex items-center">
-        <Link to="/" className="text-gray-600">
-          ← الرئيسية
-        </Link>
-        <h1 className="flex-1 text-xl font-bold text-center">خطط لمستقبلك</h1>
-        <div className="w-8"></div> {/* Empty div for layout balance */}
-      </header>
+  const { language } = useLanguage();
+  const content = getLanguageContent(language);
 
-      {/* Career Planning Content */}
-      <div className="p-5">
-        <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-          <h2 className="text-2xl font-bold mb-4 text-skillora-blue">خطة المسار المهني</h2>
-          <p className="text-gray-700 mb-6">
-            قم ببناء خطة مستقبلية تربط بين مهاراتك وأهدافك المهنية، مع خارطة طريق واضحة.
-          </p>
+  const careerPaths = [
+    {
+      id: 1,
+      title: language === 'ar' ? 'مطور برمجيات' : 'Software Developer',
+      skills: language === 'ar' 
+        ? ['برمجة', 'حل المشكلات', 'تصميم البرمجيات', 'قواعد البيانات'] 
+        : ['Programming', 'Problem Solving', 'Software Design', 'Databases'],
+      time: language === 'ar' ? '3-5 سنوات' : '3-5 years',
+      imageUrl: 'https://source.unsplash.com/random/300x200?developer'
+    },
+    {
+      id: 2,
+      title: language === 'ar' ? 'محلل بيانات' : 'Data Analyst',
+      skills: language === 'ar' 
+        ? ['تحليل البيانات', 'الإحصاء', 'بايثون/R', 'تصور البيانات'] 
+        : ['Data Analysis', 'Statistics', 'Python/R', 'Data Visualization'],
+      time: language === 'ar' ? '2-4 سنوات' : '2-4 years',
+      imageUrl: 'https://source.unsplash.com/random/300x200?data'
+    },
+    {
+      id: 3,
+      title: language === 'ar' ? 'مدير مشاريع' : 'Project Manager',
+      skills: language === 'ar' 
+        ? ['إدارة المشاريع', 'القيادة', 'التواصل', 'إدارة الموارد'] 
+        : ['Project Management', 'Leadership', 'Communication', 'Resource Management'],
+      time: language === 'ar' ? '4-6 سنوات' : '4-6 years',
+      imageUrl: 'https://source.unsplash.com/random/300x200?manager'
+    }
+  ];
+
+  const educationPaths = [
+    {
+      id: 1,
+      title: language === 'ar' ? 'بكالوريوس علوم الحاسوب' : 'Bachelor of Computer Science',
+      skills: language === 'ar' 
+        ? ['برمجة', 'خوارزميات', 'هياكل البيانات', 'نظم التشغيل'] 
+        : ['Programming', 'Algorithms', 'Data Structures', 'Operating Systems'],
+      time: language === 'ar' ? '4 سنوات' : '4 years',
+      imageUrl: 'https://source.unsplash.com/random/300x200?university'
+    },
+    {
+      id: 2,
+      title: language === 'ar' ? 'دبلوم تحليل البيانات' : 'Data Analysis Diploma',
+      skills: language === 'ar' 
+        ? ['تحليل البيانات', 'الإحصاء', 'تصور البيانات', 'SQL'] 
+        : ['Data Analysis', 'Statistics', 'Data Visualization', 'SQL'],
+      time: language === 'ar' ? '1-2 سنة' : '1-2 years',
+      imageUrl: 'https://source.unsplash.com/random/300x200?diploma'
+    },
+    {
+      id: 3,
+      title: language === 'ar' ? 'شهادة مهنية في إدارة المشاريع' : 'Professional Project Management Certification',
+      skills: language === 'ar' 
+        ? ['منهجيات إدارة المشاريع', 'إدارة المخاطر', 'تخطيط الموارد'] 
+        : ['Project Management Methodologies', 'Risk Management', 'Resource Planning'],
+      time: language === 'ar' ? '3-6 أشهر' : '3-6 months',
+      imageUrl: 'https://source.unsplash.com/random/300x200?certificate'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+      <Header />
+      
+      <div className="p-4">
+        <h1 className="text-2xl font-bold text-skillora-blue dark:text-blue-400 mb-4">
+          {content.planYourFuture}
+        </h1>
+        
+        <Tabs defaultValue="career" className="mt-4">
+          <TabsList className="w-full mb-4">
+            <TabsTrigger value="career" className="w-1/2">
+              <Briefcase className="mr-2 h-4 w-4" />
+              {content.careerPath}
+            </TabsTrigger>
+            <TabsTrigger value="education" className="w-1/2">
+              <BookOpen className="mr-2 h-4 w-4" />
+              {content.educationPath}
+            </TabsTrigger>
+          </TabsList>
           
-          {/* Timeline Visualization */}
-          <div className="relative py-6">
-            <div className="absolute left-1/2 h-full w-0.5 bg-skillora-blue transform -translate-x-1/2"></div>
-            
-            {/* Current State */}
-            <div className="relative mb-8">
-              <div className="flex items-center mb-2">
-                <div className="bg-white border-2 border-skillora-blue rounded-full w-6 h-6 absolute left-1/2 transform -translate-x-1/2"></div>
-              </div>
-              <div className="bg-skillora-lightblue rounded-lg p-4 mx-4">
-                <h3 className="font-bold text-skillora-blue">الوضع الحالي</h3>
-                <p className="text-gray-700 text-sm">مهاراتك ومعرفتك الحالية</p>
-              </div>
+          <TabsContent value="career">
+            <div className="space-y-4">
+              {careerPaths.map(path => (
+                <CareerPathCard 
+                  key={path.id} 
+                  path={path} 
+                  content={content} 
+                />
+              ))}
             </div>
-            
-            {/* Required Skills */}
-            <div className="relative mb-8">
-              <div className="flex items-center mb-2">
-                <div className="bg-white border-2 border-skillora-blue rounded-full w-6 h-6 absolute left-1/2 transform -translate-x-1/2"></div>
-              </div>
-              <div className="bg-skillora-lightblue rounded-lg p-4 mx-4">
-                <h3 className="font-bold text-skillora-blue">المهارات المطلوبة</h3>
-                <p className="text-gray-700 text-sm">المهارات التي تحتاج لتطويرها</p>
-              </div>
+          </TabsContent>
+          
+          <TabsContent value="education">
+            <div className="space-y-4">
+              {educationPaths.map(path => (
+                <CareerPathCard 
+                  key={path.id} 
+                  path={path} 
+                  content={content} 
+                />
+              ))}
             </div>
-            
-            {/* Career Goals */}
-            <div className="relative">
-              <div className="flex items-center mb-2">
-                <div className="bg-white border-2 border-skillora-blue rounded-full w-6 h-6 absolute left-1/2 transform -translate-x-1/2"></div>
-              </div>
-              <div className="bg-skillora-lightblue rounded-lg p-4 mx-4">
-                <h3 className="font-bold text-skillora-blue">الأهداف المهنية</h3>
-                <p className="text-gray-700 text-sm">المسار الوظيفي المستقبلي</p>
-              </div>
-            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+      
+      <BottomNavbar />
+    </div>
+  );
+};
+
+interface CareerPathProps {
+  path: {
+    id: number;
+    title: string;
+    skills: string[];
+    time: string;
+    imageUrl: string;
+  };
+  content: any;
+}
+
+const CareerPathCard: React.FC<CareerPathProps> = ({ path, content }) => {
+  const { language } = useLanguage();
+  
+  return (
+    <Card className="overflow-hidden">
+      <div className="h-40 overflow-hidden">
+        <img 
+          src={path.imageUrl} 
+          alt={path.title} 
+          className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
+        />
+      </div>
+      
+      <CardContent className="p-4">
+        <h3 className="font-bold text-lg mb-3 dark:text-white">{path.title}</h3>
+        
+        <div className="mb-4">
+          <h4 className="text-sm font-semibold mb-2 flex items-center dark:text-white">
+            <Award className="h-4 w-4 mr-2 text-skillora-blue dark:text-blue-400" />
+            {content.skillsNeeded}
+          </h4>
+          <div className="flex flex-wrap gap-2">
+            {path.skills.map((skill, index) => (
+              <span 
+                key={index} 
+                className="bg-gray-100 dark:bg-gray-700 dark:text-gray-200 text-gray-800 text-xs px-2 py-1 rounded"
+              >
+                {skill}
+              </span>
+            ))}
           </div>
         </div>
         
-        {/* Action Buttons */}
-        <div className="space-y-4">
-          <ActionButton 
-            text="حدد هدفك الأول" 
-            to="/goal-setting" 
-            variant="primary"
-          />
-          <ActionButton 
-            text="ابدأ خطتك" 
-            to="/start-plan" 
-            variant="accent"
-          />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+            <Clock className="h-4 w-4 mr-1 text-skillora-blue dark:text-blue-400" />
+            {content.timeToAchieve}: {path.time}
+          </div>
+          
+          <Button size="sm">
+            {content.planNow}
+          </Button>
         </div>
-        
-        {/* Info Card */}
-        <div className="mt-6 bg-white p-4 rounded-lg border border-gray-200">
-          <h3 className="font-bold mb-2">لماذا التخطيط المهني مهم؟</h3>
-          <p className="text-sm text-gray-700">
-            يساعدك التخطيط المهني على تحديد أهدافك بوضوح وتطوير استراتيجية للوصول إليها. مع تغير سوق العمل بسرعة، يصبح التخطيط الاستباقي ضروريًا للنجاح المستدام.
-          </p>
-        </div>
-      </div>
-
-      <BottomNavbar />
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

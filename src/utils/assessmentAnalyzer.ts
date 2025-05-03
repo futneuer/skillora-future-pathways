@@ -2,111 +2,152 @@
 import { AssessmentResult } from "@/types/assessment";
 
 export const analyzeAssessment = (
-  selectedOptions: Record<number, string>,
+  answers: Record<number, string>,
   language: 'ar' | 'en'
 ): AssessmentResult => {
-  // Calculate skill scores based on answers
-  const skillScores: Record<string, number> = {
-    'analytical': 0,
-    'creative': 0,
-    'collaborative': 0,
-    'technical': 0,
-    'leadership': 0,
-    'business': 0,
-    'design': 0,
-    'communication': 0
+  // Initialize score counters for different skill categories
+  const skillScores = {
+    technical: 0,
+    analytical: 0,
+    creative: 0,
+    interpersonal: 0,
+    leadership: 0,
+    research: 0,
+    organizational: 0
   };
-  
-  // Enhanced algorithm to process the expanded question set
-  Object.entries(selectedOptions).forEach(([questionIndex, optionId]) => {
-    // First character of option ID gives skill category
-    const optionType = optionId.charAt(0);
+
+  // Analysis logic - this is simplified and would be more sophisticated in a real app
+  Object.entries(answers).forEach(([questionId, answer]) => {
+    const qId = parseInt(questionId);
+    const value = getAnswerValue(answer);
     
     // Technical skills
-    if (['a', 'd', 'm', 'q', 'x'].includes(optionType)) skillScores.technical += 5;
+    if ([1, 6, 14].includes(qId)) {
+      skillScores.technical += value;
+    }
     
     // Analytical skills
-    if (['a', 'd', 'k', 'dd', 'ff'].includes(optionType)) skillScores.analytical += 5;
+    if ([2, 8, 11].includes(qId)) {
+      skillScores.analytical += value;
+    }
     
     // Creative skills
-    if (['r', 't', 'v', 'cc', 'ee'].includes(optionType)) skillScores.creative += 5;
+    if ([4, 10].includes(qId)) {
+      skillScores.creative += value;
+    }
     
-    // Collaborative skills
-    if (['c', 'g', 'j', 'w', 'ee'].includes(optionType)) skillScores.collaborative += 5;
+    // Interpersonal skills
+    if ([3, 7, 12].includes(qId)) {
+      skillScores.interpersonal += value;
+    }
     
     // Leadership skills
-    if (['e', 'j', 'p', 'gg', 'hh'].includes(optionType)) skillScores.leadership += 5;
-    
-    // Business skills
-    if (['h', 'n', 'q', 'aa', 'ii'].includes(optionType)) skillScores.business += 5;
-    
-    // Design skills
-    if (['f', 'q', 't', 'u', 'aa'].includes(optionType)) skillScores.design += 5;
-    
-    // Communication skills
-    if (['p', 'v', 'w', 'ff', 'gg'].includes(optionType)) skillScores.communication += 5;
-    
-    // Option number (1-4) adds additional points to specific skills
-    const optionNumber = parseInt(optionId.substring(1));
-    if (optionNumber === 1) {
-      skillScores.analytical += 3;
-      skillScores.technical += 2;
+    if ([7, 10, 12].includes(qId)) {
+      skillScores.leadership += value;
     }
-    if (optionNumber === 2) {
-      skillScores.creative += 3;
-      skillScores.business += 2;
+    
+    // Research skills
+    if ([5, 15].includes(qId)) {
+      skillScores.research += value;
     }
-    if (optionNumber === 3) {
-      skillScores.collaborative += 3;
-      skillScores.communication += 2;
-    }
-    if (optionNumber === 4) {
-      skillScores.leadership += 3;
-      skillScores.design += 2;
+    
+    // Organizational skills
+    if ([8, 9, 13].includes(qId)) {
+      skillScores.organizational += value;
     }
   });
   
-  // Normalize scores to percentages
-  const questionCount = 35;
-  Object.keys(skillScores).forEach(skill => {
-    const raw = skillScores[skill];
-    // Maximum possible score would be questionCount * (base points + bonus points)
-    const normalizedScore = Math.min(Math.round((raw / (questionCount * 8)) * 100), 100);
-    skillScores[skill] = normalizedScore;
-  });
+  // Normalize scores
+  const maxPossibleScore = 5; // Maximum score per question
+  const normalized = Object.entries(skillScores).reduce((acc, [skill, score]) => {
+    const questionCount = getQuestionCountForSkill(skill);
+    const normalizedScore = (score / (maxPossibleScore * questionCount)) * 100;
+    acc[skill] = Math.round(normalizedScore);
+    return acc;
+  }, {} as Record<string, number>);
   
-  // Determine recommended paths based on highest scores
-  const sortedSkills = Object.entries(skillScores).sort((a, b) => b[1] - a[1]);
-  const topSkills = sortedSkills.slice(0, 3).map(skill => skill[0]);
+  // Get top skill categories
+  const sortedSkills = Object.entries(normalized)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([skill]) => skill);
   
-  // Map skills to expanded career paths
-  const recommendedPaths = topSkills.map(skill => {
-    switch(skill) {
-      case 'analytical':
-        return language === 'ar' ? 'محلل بيانات / باحث / مخطط استراتيجي' : 'Data Analyst / Researcher / Strategic Planner';
-      case 'creative':
-        return language === 'ar' ? 'مصمم تجربة مستخدم / مدير إبداعي / مبتكر منتجات' : 'UX Designer / Creative Director / Product Innovator';
-      case 'collaborative':
-        return language === 'ar' ? 'مدير مشاريع / منسق فرق / مستشار موارد بشرية' : 'Project Manager / Team Coordinator / HR Consultant';
-      case 'technical':
-        return language === 'ar' ? 'مطور برمجيات / مهندس بيانات / محلل نظم' : 'Software Developer / Data Engineer / Systems Analyst';
-      case 'leadership':
-        return language === 'ar' ? 'مدير تنفيذي / قائد فريق تقني / مدير مشاريع' : 'Executive Manager / Technical Team Lead / Project Director';
-      case 'business':
-        return language === 'ar' ? 'محلل أعمال / مدير تسويق / مطور أعمال' : 'Business Analyst / Marketing Manager / Business Developer';
-      case 'design':
-        return language === 'ar' ? 'مصمم واجهات / مدير فني / مصمم منتجات' : 'UI Designer / Art Director / Product Designer';
-      case 'communication':
-        return language === 'ar' ? 'مدير علاقات عامة / مسؤول تواصل / مدرب مهني' : 'PR Manager / Communications Officer / Professional Trainer';
-      default:
-        return language === 'ar' ? 'متخصص تقني' : 'Technology Specialist';
-    }
-  });
-
+  // Recommend career paths based on top skills
+  const recommendedPaths = getRecommendedPaths(sortedSkills, language);
+  
   return {
     timestamp: new Date().toISOString(),
-    answers: selectedOptions,
-    skillScores,
+    answers,
+    skillScores: normalized,
     recommendedPaths
   };
+};
+
+// Helper function to convert letter answer to numeric value
+const getAnswerValue = (answer: string): number => {
+  switch (answer) {
+    case 'a': return 5; // Strongly agree
+    case 'b': return 4; // Agree
+    case 'c': return 3; // Neutral
+    case 'd': return 2; // Disagree
+    case 'e': return 1; // Strongly disagree
+    default: return 0;
+  }
+};
+
+// Helper function to determine how many questions contribute to each skill category
+const getQuestionCountForSkill = (skill: string): number => {
+  switch (skill) {
+    case 'technical': return 3;
+    case 'analytical': return 3;
+    case 'creative': return 2;
+    case 'interpersonal': return 3;
+    case 'leadership': return 3;
+    case 'research': return 2;
+    case 'organizational': return 3;
+    default: return 1;
+  }
+};
+
+// Helper function to get career recommendations based on top skills
+const getRecommendedPaths = (topSkills: string[], language: 'ar' | 'en'): string[] => {
+  const recommendations: { [key: string]: string[] } = {
+    technical: language === 'ar' 
+      ? ['مطور برمجيات', 'مهندس شبكات', 'محلل بيانات', 'مهندس ذكاء اصطناعي', 'مطور تطبيقات الويب والجوال']
+      : ['Software Developer', 'Network Engineer', 'Data Analyst', 'AI Engineer', 'Web & Mobile App Developer'],
+    
+    analytical: language === 'ar'
+      ? ['محلل بيانات', 'محلل أعمال', 'باحث سوق', 'مستشار استثمار', 'مهندس بحوث العمليات']
+      : ['Data Analyst', 'Business Analyst', 'Market Researcher', 'Investment Consultant', 'Operations Research Engineer'],
+    
+    creative: language === 'ar'
+      ? ['مصمم جرافيك', 'مصمم واجهات مستخدم', 'كاتب محتوى', 'منتج إبداعي', 'مصمم منتجات']
+      : ['Graphic Designer', 'UI/UX Designer', 'Content Writer', 'Creative Producer', 'Product Designer'],
+    
+    interpersonal: language === 'ar'
+      ? ['مدير علاقات عامة', 'مستشار موارد بشرية', 'مدرب تنمية بشرية', 'مندوب مبيعات', 'أخصائي تسويق']
+      : ['Public Relations Manager', 'HR Consultant', 'Personal Development Coach', 'Sales Representative', 'Marketing Specialist'],
+    
+    leadership: language === 'ar'
+      ? ['مدير مشاريع', 'مدير عمليات', 'قائد فريق', 'مدير إداري', 'استشاري أعمال']
+      : ['Project Manager', 'Operations Manager', 'Team Leader', 'Administrative Director', 'Business Consultant'],
+    
+    research: language === 'ar'
+      ? ['باحث علمي', 'باحث سوق', 'محلل سياسات', 'مطور منتجات', 'باحث في مجال الذكاء الاصطناعي']
+      : ['Scientific Researcher', 'Market Researcher', 'Policy Analyst', 'Product Developer', 'AI Researcher'],
+    
+    organizational: language === 'ar'
+      ? ['مدير إداري', 'مخطط مالي', 'محلل جودة', 'مدير مشروعات', 'مخطط استراتيجي']
+      : ['Administrative Manager', 'Financial Planner', 'Quality Analyst', 'Project Manager', 'Strategic Planner']
+  };
+  
+  // Collect recommendations from top skills (avoid duplicates)
+  const allRecommendations = new Set<string>();
+  
+  topSkills.forEach(skill => {
+    const skillRecs = recommendations[skill] || [];
+    skillRecs.forEach(rec => allRecommendations.add(rec));
+  });
+  
+  return Array.from(allRecommendations).slice(0, 5); // Return top 5 unique recommendations
 };

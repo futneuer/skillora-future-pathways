@@ -1,14 +1,16 @@
 
 import React, { useState } from "react";
-import { Mail, Phone, MessageCircle } from "lucide-react";
+import { Mail, Phone, MessageCircle, Users, BookOpen } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { getLanguageContent } from "@/data/languageContent";
 
 const ContactSection = () => {
   const { language } = useLanguage();
+  const content = getLanguageContent(language);
   const { toast } = useToast();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -41,12 +43,10 @@ const ContactSection = () => {
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
       <div className="bg-gradient-to-r from-skillora-blue to-blue-600 p-6 text-white">
         <h3 className="text-xl font-bold mb-2">
-          {language === 'ar' ? "تواصل معنا" : "Contact Us"}
+          {content.contactUs}
         </h3>
         <p className="opacity-90 text-sm">
-          {language === 'ar' 
-            ? "نحن هنا للرد على استفساراتك ومساعدتك في رحلة تعلمك" 
-            : "We're here to answer your questions and assist you in your learning journey"}
+          {content.contactDesc}
         </p>
       </div>
       
@@ -57,7 +57,7 @@ const ContactSection = () => {
               <div className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-1 dark:text-white">
-                    {language === 'ar' ? "الاسم" : "Name"}
+                    {content.yourName}
                   </label>
                   <Input
                     id="name"
@@ -70,7 +70,7 @@ const ContactSection = () => {
                 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-1 dark:text-white">
-                    {language === 'ar' ? "البريد الإلكتروني" : "Email"}
+                    {content.yourEmail}
                   </label>
                   <Input
                     id="email"
@@ -84,7 +84,7 @@ const ContactSection = () => {
                 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-1 dark:text-white">
-                    {language === 'ar' ? "الرسالة" : "Message"}
+                    {content.yourMessage}
                   </label>
                   <Textarea
                     id="message"
@@ -98,8 +98,8 @@ const ContactSection = () => {
                 
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting 
-                    ? (language === 'ar' ? "جاري الإرسال..." : "Sending...") 
-                    : (language === 'ar' ? "إرسال الرسالة" : "Send Message")}
+                    ? content.sending
+                    : content.sendMessage}
                 </Button>
               </div>
             </form>
@@ -108,7 +108,7 @@ const ContactSection = () => {
           <div className="space-y-6">
             <div>
               <h4 className="text-lg font-semibold mb-3 dark:text-white">
-                {language === 'ar' ? "معلومات الاتصال" : "Contact Information"}
+                {content.contactInfo}
               </h4>
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -117,7 +117,7 @@ const ContactSection = () => {
                 </div>
                 <div className="flex items-center">
                   <Phone className="h-5 w-5 text-skillora-blue dark:text-blue-400 mr-2" />
-                  <span className="dark:text-gray-300">+123 456 7890</span>
+                  <span className="dark:text-gray-300">0776963765</span>
                 </div>
                 <div className="flex items-center">
                   <MessageCircle className="h-5 w-5 text-skillora-blue dark:text-blue-400 mr-2" />
@@ -128,13 +128,37 @@ const ContactSection = () => {
             
             <div>
               <h4 className="text-lg font-semibold mb-3 dark:text-white">
-                {language === 'ar' ? "ساعات العمل" : "Office Hours"}
+                {content.officeHours}
               </h4>
               <ul className="space-y-2 dark:text-gray-300">
-                <li>{language === 'ar' ? "الإثنين - الجمعة: 9:00 ص - 5:00 م" : "Monday - Friday: 9:00 AM - 5:00 PM"}</li>
-                <li>{language === 'ar' ? "السبت: 10:00 ص - 2:00 م" : "Saturday: 10:00 AM - 2:00 PM"}</li>
-                <li>{language === 'ar' ? "الأحد: مغلق" : "Sunday: Closed"}</li>
+                <li>{content.weekdays}</li>
+                <li>{content.saturday}</li>
+                <li>{content.sunday}</li>
               </ul>
+            </div>
+            
+            {/* Team Information */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3 dark:text-white flex items-center">
+                <Users className="h-5 w-5 mr-2 text-skillora-blue dark:text-blue-400" />
+                {content.ourTeam}
+              </h4>
+              <ul className="space-y-2 dark:text-gray-300">
+                <li><strong>{content.owner}:</strong> Hasan Mubarak</li>
+                <li><strong>{content.coOwner}:</strong> Zackaria Fataftah</li>
+                <li><strong>{content.supervisor}:</strong> Ms. Heba Almashni</li>
+              </ul>
+            </div>
+            
+            {/* License Information */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3 dark:text-white flex items-center">
+                <BookOpen className="h-5 w-5 mr-2 text-skillora-blue dark:text-blue-400" />
+                {content.license}
+              </h4>
+              <p className="text-sm dark:text-gray-300">
+                {content.licenseText}
+              </p>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ import Assessment from "./pages/Assessment";
 import Skills from "./pages/Skills";
 import Planning from "./pages/Planning";
 import Courses from "./pages/Courses";
+import CourseDetails from "./pages/CourseDetails";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
@@ -39,6 +40,7 @@ const App = () => (
                 <Route path="/skills" element={<Skills />} />
                 <Route path="/planning" element={<Planning />} />
                 <Route path="/courses" element={<Courses />} />
+                <Route path="/course/:id" element={<CourseDetails />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/settings" element={<Settings />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
