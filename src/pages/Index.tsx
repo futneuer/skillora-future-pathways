@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, LineChart, Brain } from "lucide-react";
+import { BookOpen, LineChart, Brain, Sparkles } from "lucide-react";
 import BottomNavbar from "@/components/BottomNavbar";
 import ActionButton from "@/components/ActionButton";
 import SkillCard from "@/components/SkillCard";
@@ -9,6 +9,7 @@ import Header from "@/components/Header";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import ContactSection from "@/components/ContactSection";
+import Logo from "@/components/Logo";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ const Index = () => {
       planFuture: "خطط لمستقبلك",
       featuredSkills: "المهارات المميزة",
       viewAll: "عرض الكل",
+      welcome: "مرحبًا بك في",
+      unleashSkills: "أطلق العنان لإمكاناتك",
+      discoverPath: "اكتشف مسارك المهني المثالي",
       skills: [
         {
           title: "التفكير النقدي",
@@ -45,6 +49,9 @@ const Index = () => {
       planFuture: "Plan Your Future",
       featuredSkills: "Featured Skills",
       viewAll: "View All",
+      welcome: "Welcome to",
+      unleashSkills: "Unleash Your Potential",
+      discoverPath: "Discover Your Ideal Career Path",
       skills: [
         {
           title: "Critical Thinking",
@@ -67,10 +74,44 @@ const Index = () => {
       <Header />
       
       <main className="p-4 pb-24">
-        {/* Hero Section */}
-        <section className="px-5 py-8 bg-gradient-to-br from-skillora-blue to-blue-700 text-white">
-          <h2 className="text-3xl font-bold mb-4 text-center">{currentLanguage.heroTitle}</h2>
-          <p className="text-center opacity-90 mb-6">{currentLanguage.heroDesc}</p>
+        {/* Enhanced Hero Section with Animation */}
+        <section className="rounded-2xl overflow-hidden mb-8">
+          <div className="relative">
+            {/* Background with Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-skillora-blue via-blue-600 to-purple-700 opacity-90"></div>
+            
+            {/* Animated Pattern Background */}
+            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[length:20px_20px]"></div>
+            
+            <div className="relative z-10 py-16 px-6 text-center">
+              {/* Welcome Message with Animation */}
+              <div className="flex flex-col items-center justify-center mb-6 animate-fade-in">
+                <p className="text-white text-lg mb-2 opacity-90">{currentLanguage.welcome}</p>
+                <div className="flex items-center justify-center mb-4">
+                  <Logo size="large" className="text-white" />
+                </div>
+              </div>
+              
+              {/* Main Headline with Sparkles */}
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+                <Sparkles className="h-6 w-6 text-yellow-300" />
+                {currentLanguage.unleashSkills}
+                <Sparkles className="h-6 w-6 text-yellow-300" />
+              </h1>
+              
+              <p className="text-xl text-white opacity-90 max-w-2xl mx-auto mb-8">
+                {currentLanguage.discoverPath}
+              </p>
+              
+              {/* Call to Action Button */}
+              <button 
+                onClick={() => navigate('/assessment')}
+                className="bg-white text-skillora-blue px-8 py-3 rounded-full font-bold hover:bg-opacity-90 transition-all transform hover:scale-105"
+              >
+                {currentLanguage.startAssessment}
+              </button>
+            </div>
+          </div>
         </section>
 
         {/* Main Actions Section */}

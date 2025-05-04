@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import BottomNavbar from "@/components/BottomNavbar";
@@ -164,6 +163,9 @@ const Settings = () => {
         [setting]: !settings.features[setting]
       }
     });
+    
+    // Dispatch custom event to notify other components about the settings change
+    window.dispatchEvent(new Event('settingsChanged'));
   };
   
   const setProfileVisibility = (value: string) => {

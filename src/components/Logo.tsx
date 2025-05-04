@@ -1,6 +1,7 @@
 
 import React from "react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { Bolt } from "lucide-react";
 
 const Logo = ({ className = "", size = "medium" }: { className?: string; size?: "small" | "medium" | "large" }) => {
   const { theme } = useTheme();
@@ -14,7 +15,7 @@ const Logo = ({ className = "", size = "medium" }: { className?: string; size?: 
   
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <div className={`rounded-lg overflow-hidden ${size === "small" ? "w-6 h-6" : size === "medium" ? "w-8 h-8" : "w-10 h-10"}`}>
+      <div className={`relative rounded-lg overflow-hidden ${size === "small" ? "w-6 h-6" : size === "medium" ? "w-8 h-8" : "w-10 h-10"}`}>
         <svg 
           viewBox="0 0 100 100" 
           className="w-full h-full"
@@ -34,6 +35,12 @@ const Logo = ({ className = "", size = "medium" }: { className?: string; size?: 
           />
           <circle cx="50" cy="45" r="5" fill={theme === "dark" ? "#E5DEFF" : "#D6BCFA"} />
         </svg>
+        <Bolt 
+          size={size === "small" ? 10 : size === "medium" ? 14 : 18} 
+          className="absolute bottom-0 right-0 text-yellow-400 drop-shadow-md" 
+          strokeWidth={3}
+          fill="currentColor"
+        />
       </div>
       <span className={`${sizeClasses[size]} text-skillora-blue dark:text-blue-400`}>
         Skillora
