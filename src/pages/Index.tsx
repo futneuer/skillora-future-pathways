@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BookOpen, LineChart, Brain } from "lucide-react";
@@ -7,6 +6,7 @@ import ActionButton from "@/components/ActionButton";
 import SkillCard from "@/components/SkillCard";
 import Header from "@/components/Header";
 import { useLanguage } from "@/contexts/LanguageContext";
+import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -60,65 +60,70 @@ const Index = () => {
   const currentLanguage = content[language];
   
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
-      {/* Header */}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header />
+      
+      <main className="p-4 pb-24">
+        {/* Hero Section */}
+        <section className="px-5 py-8 bg-gradient-to-br from-skillora-blue to-blue-700 text-white">
+          <h2 className="text-3xl font-bold mb-4 text-center">{currentLanguage.heroTitle}</h2>
+          <p className="text-center opacity-90 mb-6">{currentLanguage.heroDesc}</p>
+        </section>
 
-      {/* Hero Section */}
-      <section className="px-5 py-8 bg-gradient-to-br from-skillora-blue to-blue-700 text-white">
-        <h2 className="text-3xl font-bold mb-4 text-center">{currentLanguage.heroTitle}</h2>
-        <p className="text-center opacity-90 mb-6">{currentLanguage.heroDesc}</p>
-      </section>
-
-      {/* Main Actions Section */}
-      <section className="px-5 py-8">
-        <div className="space-y-4">
-          <ActionButton 
-            text={currentLanguage.startAssessment} 
-            to="/assessment" 
-            variant="primary"
-            icon={<Brain size={24} />}
-          />
-          <ActionButton 
-            text={currentLanguage.exploreSkills} 
-            to="/skills" 
-            variant="accent"
-            icon={<BookOpen size={24} />}
-          />
-          <ActionButton 
-            text={currentLanguage.planFuture} 
-            to="/planning" 
-            variant="success"
-            icon={<LineChart size={24} />}
-          />
-        </div>
-      </section>
-
-      {/* Featured Skills Preview */}
-      <section className="px-5 py-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold dark:text-white">{currentLanguage.featuredSkills}</h2>
-          <button 
-            onClick={() => navigate('/skills')}
-            className="text-skillora-blue dark:text-blue-400 font-medium text-sm"
-          >
-            {currentLanguage.viewAll}
-          </button>
-        </div>
-        
-        <div className="space-y-4">
-          {currentLanguage.skills.map((skill, index) => (
-            <SkillCard
-              key={index}
-              title={skill.title}
-              description={skill.description}
-              usage={skill.usage}
+        {/* Main Actions Section */}
+        <section className="px-5 py-8">
+          <div className="space-y-4">
+            <ActionButton 
+              text={currentLanguage.startAssessment} 
+              to="/assessment" 
+              variant="primary"
+              icon={<Brain size={24} />}
             />
-          ))}
-        </div>
-      </section>
+            <ActionButton 
+              text={currentLanguage.exploreSkills} 
+              to="/skills" 
+              variant="accent"
+              icon={<BookOpen size={24} />}
+            />
+            <ActionButton 
+              text={currentLanguage.planFuture} 
+              to="/planning" 
+              variant="success"
+              icon={<LineChart size={24} />}
+            />
+          </div>
+        </section>
 
-      {/* Bottom Navigation */}
+        {/* Featured Skills Preview */}
+        <section className="px-5 py-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold dark:text-white">{currentLanguage.featuredSkills}</h2>
+            <button 
+              onClick={() => navigate('/skills')}
+              className="text-skillora-blue dark:text-blue-400 font-medium text-sm"
+            >
+              {currentLanguage.viewAll}
+            </button>
+          </div>
+          
+          <div className="space-y-4">
+            {currentLanguage.skills.map((skill, index) => (
+              <SkillCard
+                key={index}
+                title={skill.title}
+                description={skill.description}
+                usage={skill.usage}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Add Contact Section */}
+        <section className="mt-6">
+          <ContactSection />
+        </section>
+      </main>
+      
       <BottomNavbar />
     </div>
   );
