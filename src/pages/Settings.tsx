@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import BottomNavbar from "@/components/BottomNavbar";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Bell, Globe, Moon, Sun, User, Lock, Eye, EyeOff } from "lucide-react";
+import { Bell, Globe, Moon, Sun, User, Lock, Eye, EyeOff, Gamepad } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -27,6 +27,9 @@ interface SettingsData {
   security: {
     twoFactorAuth: boolean;
   };
+  features: {
+    showGames: boolean;
+  };
 }
 
 const Settings = () => {
@@ -45,6 +48,9 @@ const Settings = () => {
     },
     security: {
       twoFactorAuth: false
+    },
+    features: {
+      showGames: true
     }
   });
   
@@ -89,7 +95,9 @@ const Settings = () => {
       deleteAccount: "حذف الحساب",
       downloadData: "تنزيل بياناتي",
       saveChanges: "حفظ التغييرات",
-      passwordUpdated: "تم تحديث كلمة المرور بنجاح"
+      passwordUpdated: "تم تحديث كلمة المرور بنجاح",
+      features: "المميزات",
+      showGames: "عرض قسم الألعاب",
     },
     en: {
       title: "Settings",
@@ -118,7 +126,9 @@ const Settings = () => {
       deleteAccount: "Delete Account",
       downloadData: "Download My Data",
       saveChanges: "Save Changes",
-      passwordUpdated: "Password updated successfully"
+      passwordUpdated: "Password updated successfully",
+      features: "Features",
+      showGames: "Show Games Section",
     }
   };
 
@@ -144,6 +154,16 @@ const Settings = () => {
         }
       });
     }
+  };
+  
+  const toggleFeatureSetting = (setting: keyof typeof settings.features) => {
+    setSettings({
+      ...settings,
+      features: {
+        ...settings.features,
+        [setting]: !settings.features[setting]
+      }
+    });
   };
   
   const setProfileVisibility = (value: string) => {
@@ -247,6 +267,24 @@ const Settings = () => {
                   {currentLanguage.english}
                 </Button>
               </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Features Section */}
+        <section className="mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-5">
+          <h2 className="text-lg font-semibold mb-4 dark:text-white">{currentLanguage.features}</h2>
+          
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Gamepad className="h-5 w-5 text-skillora-blue" />
+                <span className="dark:text-white">{currentLanguage.showGames}</span>
+              </div>
+              <Switch 
+                checked={settings.features.showGames}
+                onCheckedChange={() => toggleFeatureSetting("showGames")}
+              />
             </div>
           </div>
         </section>
