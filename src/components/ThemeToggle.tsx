@@ -16,6 +16,7 @@ const ThemeToggle = () => {
       onClick={toggleTheme}
       className="rounded-full"
       aria-label="Toggle theme"
+      dir="ltr" // Force left-to-right direction for icon toggle regardless of language
     >
       {theme === "light" ? (
         <Moon className="h-5 w-5" />

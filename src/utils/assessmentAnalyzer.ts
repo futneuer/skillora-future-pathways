@@ -13,7 +13,15 @@ export const analyzeAssessment = (
     interpersonal: 0,
     leadership: 0,
     research: 0,
-    organizational: 0
+    organizational: 0,
+    artistic: 0,
+    agricultural: 0,
+    logistics: 0,
+    healthcare: 0,
+    legal: 0,
+    business: 0,
+    educational: 0,
+    engineering: 0
   };
 
   // Analysis logic - this is simplified and would be more sophisticated in a real app
@@ -42,7 +50,7 @@ export const analyzeAssessment = (
     }
     
     // Leadership skills
-    if ([7, 10, 12].includes(qId)) {
+    if ([7, 10, 12, 26].includes(qId)) {
       skillScores.leadership += value;
     }
     
@@ -52,8 +60,49 @@ export const analyzeAssessment = (
     }
     
     // Organizational skills
-    if ([8, 9, 13].includes(qId)) {
+    if ([8, 9, 13, 20].includes(qId)) {
       skillScores.organizational += value;
+    }
+    
+    // New categories
+    // Artistic skills
+    if ([4, 16, 17].includes(qId)) {
+      skillScores.artistic += value;
+    }
+    
+    // Agricultural skills
+    if ([18, 19].includes(qId)) {
+      skillScores.agricultural += value;
+    }
+    
+    // Logistics skills
+    if ([20, 21].includes(qId)) {
+      skillScores.logistics += value;
+    }
+    
+    // Healthcare skills
+    if ([22, 23].includes(qId)) {
+      skillScores.healthcare += value;
+    }
+    
+    // Legal skills
+    if ([24, 25].includes(qId)) {
+      skillScores.legal += value;
+    }
+    
+    // Business skills
+    if ([26, 27].includes(qId)) {
+      skillScores.business += value;
+    }
+    
+    // Educational skills
+    if ([28, 29].includes(qId)) {
+      skillScores.educational += value;
+    }
+    
+    // Engineering skills
+    if ([2, 30].includes(qId)) {
+      skillScores.engineering += value;
     }
   });
   
@@ -102,9 +151,17 @@ const getQuestionCountForSkill = (skill: string): number => {
     case 'analytical': return 3;
     case 'creative': return 2;
     case 'interpersonal': return 3;
-    case 'leadership': return 3;
+    case 'leadership': return 4;
     case 'research': return 2;
-    case 'organizational': return 3;
+    case 'organizational': return 4;
+    case 'artistic': return 3;
+    case 'agricultural': return 2;
+    case 'logistics': return 2;
+    case 'healthcare': return 2;
+    case 'legal': return 2;
+    case 'business': return 2;
+    case 'educational': return 2;
+    case 'engineering': return 2;
     default: return 1;
   }
 };
@@ -138,7 +195,40 @@ const getRecommendedPaths = (topSkills: string[], language: 'ar' | 'en'): string
     
     organizational: language === 'ar'
       ? ['مدير إداري', 'مخطط مالي', 'محلل جودة', 'مدير مشروعات', 'مخطط استراتيجي']
-      : ['Administrative Manager', 'Financial Planner', 'Quality Analyst', 'Project Manager', 'Strategic Planner']
+      : ['Administrative Manager', 'Financial Planner', 'Quality Analyst', 'Project Manager', 'Strategic Planner'],
+      
+    // New categories
+    artistic: language === 'ar'
+      ? ['فنان تشكيلي', 'مصمم غرافيك', 'مصور فوتوغرافي', 'مصمم أزياء', 'مصمم داخلي']
+      : ['Fine Artist', 'Graphic Designer', 'Photographer', 'Fashion Designer', 'Interior Designer'],
+      
+    agricultural: language === 'ar'
+      ? ['مهندس زراعي', 'خبير بيئة', 'مدير مزرعة', 'باحث تنمية مستدامة', 'مختص تربة ومياه']
+      : ['Agricultural Engineer', 'Environmental Specialist', 'Farm Manager', 'Sustainable Development Researcher', 'Soil and Water Specialist'],
+      
+    logistics: language === 'ar'
+      ? ['مدير لوجستيات', 'مخطط سلاسل التوريد', 'محلل نقل', 'مدير عمليات الشحن', 'مشرف التوزيع']
+      : ['Logistics Manager', 'Supply Chain Planner', 'Transportation Analyst', 'Shipping Operations Manager', 'Distribution Supervisor'],
+      
+    healthcare: language === 'ar'
+      ? ['طبيب', 'ممرض', 'معالج فيزيائي', 'صيدلي', 'أخصائي تغذية']
+      : ['Physician', 'Nurse', 'Physical Therapist', 'Pharmacist', 'Nutritionist'],
+      
+    legal: language === 'ar'
+      ? ['محامي', 'مستشار قانوني', 'قاضي', 'باحث قانوني', 'كاتب عدل']
+      : ['Lawyer', 'Legal Consultant', 'Judge', 'Legal Researcher', 'Notary'],
+      
+    business: language === 'ar'
+      ? ['مدير تنفيذي', 'مدير تسويق', 'محلل مالي', 'رائد أعمال', 'مستشار أعمال']
+      : ['Executive Manager', 'Marketing Director', 'Financial Analyst', 'Entrepreneur', 'Business Consultant'],
+      
+    educational: language === 'ar'
+      ? ['معلم', 'أستاذ جامعي', 'مطور مناهج', 'مرشد تربوي', 'مدير مدرسة']
+      : ['Teacher', 'University Professor', 'Curriculum Developer', 'Educational Counselor', 'School Principal'],
+      
+    engineering: language === 'ar'
+      ? ['مهندس مدني', 'مهندس معماري', 'مهندس ميكانيكي', 'مهندس كهربائي', 'مهندس صناعي']
+      : ['Civil Engineer', 'Architect', 'Mechanical Engineer', 'Electrical Engineer', 'Industrial Engineer']
   };
   
   // Collect recommendations from top skills (avoid duplicates)

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BookOpen, LineChart, Brain } from "lucide-react";
@@ -6,11 +7,13 @@ import ActionButton from "@/components/ActionButton";
 import SkillCard from "@/components/SkillCard";
 import Header from "@/components/Header";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { language } = useLanguage();
+  const { language, isRTL } = useLanguage();
+  const { theme } = useTheme();
   
   const content = {
     ar: {
