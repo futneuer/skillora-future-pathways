@@ -37,7 +37,7 @@ const ChatAI = () => {
   const currentLanguage = content[language];
   
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+    <div className="min-h-screen bg-white dark:bg-gray-900 pb-20">
       <Header />
       
       <div className="p-5">
