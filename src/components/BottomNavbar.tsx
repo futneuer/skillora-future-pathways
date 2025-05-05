@@ -1,14 +1,12 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, BookOpen, User, Settings, Gamepad } from "lucide-react";
+import { Home, BookOpen, User, Settings, MessageSquare } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useShowGames } from "@/hooks/useShowGames";
 
 const BottomNavbar = () => {
   const location = useLocation();
   const { language } = useLanguage();
-  const showGames = useShowGames();
   
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -19,22 +17,18 @@ const BottomNavbar = () => {
       ar: [
         { path: "/", label: "الرئيسية", icon: Home },
         { path: "/courses", label: "الدورات", icon: BookOpen },
+        { path: "/chat", label: "دردشة ذكية", icon: MessageSquare },
         { path: "/profile", label: "حسابي", icon: User },
         { path: "/settings", label: "إعدادات", icon: Settings }
       ],
       en: [
         { path: "/", label: "Home", icon: Home },
         { path: "/courses", label: "Courses", icon: BookOpen },
+        { path: "/chat", label: "AI Chat", icon: MessageSquare },
         { path: "/profile", label: "Profile", icon: User },
         { path: "/settings", label: "Settings", icon: Settings }
       ]
     };
-    
-    if (showGames) {
-      // Insert games tab after courses
-      baseItems.ar.splice(2, 0, { path: "/games", label: "ألعاب", icon: Gamepad });
-      baseItems.en.splice(2, 0, { path: "/games", label: "Games", icon: Gamepad });
-    }
     
     return baseItems;
   };

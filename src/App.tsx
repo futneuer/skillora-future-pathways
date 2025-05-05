@@ -12,7 +12,7 @@ import Courses from "./pages/Courses";
 import CourseDetails from "./pages/CourseDetails";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-import Games from "./pages/Games";
+import ChatAI from "./pages/ChatAI";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
@@ -23,16 +23,14 @@ import { useEffect } from "react";
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Check if games should be hidden
+  // Initialize default settings if none exist
   useEffect(() => {
     const savedSettings = localStorage.getItem('userSettings');
     if (!savedSettings) {
-      // Initialize default settings if none exist
       const defaultSettings = {
         notifications: { email: true, app: true, marketing: false },
         privacy: { profileVisibility: "public", showProgress: true },
-        security: { twoFactorAuth: false },
-        features: { showGames: true }
+        security: { twoFactorAuth: false }
       };
       localStorage.setItem('userSettings', JSON.stringify(defaultSettings));
     }
@@ -59,7 +57,7 @@ const App = () => {
                   <Route path="/planning" element={<Planning />} />
                   <Route path="/courses" element={<Courses />} />
                   <Route path="/course/:id" element={<CourseDetails />} />
-                  <Route path="/games" element={<Games />} />
+                  <Route path="/chat" element={<ChatAI />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/settings" element={<Settings />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
