@@ -42,7 +42,7 @@ const Logo = ({ className = "", size = "medium" }: { className?: string; size?: 
           fill="currentColor"
         />
       </div>
-      <span className={`${sizeClasses[size]} text-skillora-blue dark:text-blue-400`}>
+      <span className={`${sizeClasses[size]} ${theme === "light" ? "text-skillora-blue" : "text-blue-400"}`}>
         Skillora
       </span>
     </div>
