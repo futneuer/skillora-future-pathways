@@ -11,15 +11,20 @@ export function useIsMobile() {
 
   React.useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
+    
     const onChange = () => {
       setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
     }
+    
     mql.addEventListener("change", onChange)
+    // Set initial value
     setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    
+    // Clean up
     return () => mql.removeEventListener("change", onChange)
   }, [])
 
-  return !!isMobile
+  return isMobile !== undefined ? isMobile : false
 }
 
 export function useDeviceType() {
@@ -37,8 +42,19 @@ export function useDeviceType() {
       }
     }
 
-    handleResize() // Initial check
+    // Initial check
+    handleResize()
+    
+    // Listen for resize events
     window.addEventListener("resize", handleResize)
+    
+    // Check for touch capability to better identify mobile devices
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      // This is likely a touch device (mobile or tablet)
+      const width = window.innerWidth
+      setDeviceType(width < TABLET_BREAKPOINT ? "mobile" : "tablet")
+    }
+    
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 

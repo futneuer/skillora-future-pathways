@@ -20,4 +20,10 @@ window.updateDocumentLanguage = function(language: string) {
 window.addEventListener('DOMContentLoaded', () => {
   console.log('Device width:', window.innerWidth);
   console.log('Device type:', window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1024 ? 'tablet' : 'desktop');
+  
+  // Set initial viewport meta for optimal display on all devices
+  const viewportMeta = document.querySelector('meta[name="viewport"]');
+  if (viewportMeta) {
+    viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+  }
 });

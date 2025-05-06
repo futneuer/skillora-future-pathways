@@ -10,6 +10,8 @@
 
 body {
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  touch-action: manipulation; /* Prevents double-tap zoom */
 }
 
 /* Responsive container */
@@ -45,7 +47,7 @@ body {
   }
 }
 
-/* Animation enhancements */
+/* Animation enhancements - optimized for performance */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -54,11 +56,13 @@ body {
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+  will-change: transform; /* Performance optimization */
 }
 
 /* Card hover effects */
 .card-hover {
   transition: all 0.3s ease;
+  backface-visibility: hidden; /* Performance optimization */
 }
 
 .card-hover:hover {
@@ -87,17 +91,42 @@ body {
     text-align: center !important;
     justify-content: center !important;
   }
+  
+  /* Prevent text size adjustment on orientation change */
+  html, body {
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  /* Improve tap target sizes */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
 
 /* Dark mode enhancements */
 .dark .glass-effect {
   background: rgba(30, 41, 59, 0.7);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .light .glass-effect {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
   border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Print styles for compatibility */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    color: #000;
+    background: #fff;
+  }
 }
