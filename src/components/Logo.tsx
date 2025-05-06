@@ -2,11 +2,23 @@
 import React from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Bolt } from "lucide-react";
+import { useDeviceType } from "@/hooks/use-mobile";
 
 type LogoSize = "small" | "medium" | "large";
 
 const Logo = ({ className = "", size = "medium" }: { className?: string; size?: LogoSize }) => {
   const { theme } = useTheme();
+  const deviceType = useDeviceType();
+  
+  // Adjust logo size based on device type
+  const getResponsiveSize = (originalSize: LogoSize): LogoSize => {
+    if (deviceType === "mobile" && originalSize === "large") {
+      return "medium";
+    }
+    return originalSize;
+  };
+  
+  const responsiveSize = getResponsiveSize(size);
   
   // Size mapping
   const sizeClasses = {
@@ -15,9 +27,23 @@ const Logo = ({ className = "", size = "medium" }: { className?: string; size?: 
     large: "text-3xl font-bold"
   };
   
+  // Dynamic SVG sizes
+  const svgSizes = {
+    small: "w-6 h-6",
+    medium: "w-8 h-8",
+    large: "w-10 h-10"
+  };
+  
+  // Dynamic bolt icon sizes
+  const boltSizes = {
+    small: 10,
+    medium: 14,
+    large: 18
+  };
+  
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <div className={`relative rounded-lg overflow-hidden ${size === "small" ? "w-6 h-6" : size === "medium" ? "w-8 h-8" : "w-10 h-10"}`}>
+      <div className={`relative rounded-lg overflow-hidden ${svgSizes[responsiveSize]}`}>
         <svg 
           viewBox="0 0 100 100" 
           className="w-full h-full"
@@ -38,13 +64,13 @@ const Logo = ({ className = "", size = "medium" }: { className?: string; size?: 
           <circle cx="50" cy="45" r="5" fill={theme === "dark" ? "#E5DEFF" : "#D6BCFA"} />
         </svg>
         <Bolt 
-          size={size === "small" ? 10 : size === "medium" ? 14 : 18} 
+          size={boltSizes[responsiveSize]} 
           className="absolute bottom-0 right-0 text-yellow-400 drop-shadow-md" 
           strokeWidth={3}
           fill="currentColor"
         />
       </div>
-      <span className={`${sizeClasses[size]} ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
+      <span className={`${sizeClasses[responsiveSize]} ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
         Skillora
       </span>
     </div>
