@@ -3,7 +3,7 @@ import React from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Bolt } from "lucide-react";
 
-const Logo = ({ className = "", size = "medium" }: { className?: string; size?: "small" | "medium" | "large" }) => {
+const Logo = ({ className = "", size = "small" | "medium" | "large" }) => {
   const { theme } = useTheme();
   
   // Size mapping
@@ -42,7 +42,7 @@ const Logo = ({ className = "", size = "medium" }: { className?: string; size?: 
           fill="currentColor"
         />
       </div>
-      <span className={`${sizeClasses[size]} ${theme === "dark" ? "text-blue-400" : "text-skillora-blue"}`}>
+      <span className={`${sizeClasses[size]} ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
         Skillora
       </span>
     </div>
