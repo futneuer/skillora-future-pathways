@@ -90,7 +90,7 @@ const Index = () => {
   const marketStats = [
     { label: language === "en" ? "Skills Gap" : "فجوة المهارات", value: "68%", icon: <BarChart className="text-red-500" /> },
     { label: language === "en" ? "Growth Fields" : "مجالات النمو", value: "12+", icon: <LineChart className="text-green-500" /> },
-    { label: language === "en" ? "Top Skills" : "أهم المهارات", value: "25", icon: <Award className="text-yellow-500" /> }
+    { label: language === "en" ? "Top Skills" : "أهم المهارات", value: 25, icon: <Award className="text-yellow-500" /> }
   ];
   
   return (

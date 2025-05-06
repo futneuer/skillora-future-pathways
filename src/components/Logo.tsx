@@ -3,7 +3,9 @@ import React from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Bolt } from "lucide-react";
 
-const Logo = ({ className = "", size = "small" | "medium" | "large" }) => {
+type LogoSize = "small" | "medium" | "large";
+
+const Logo = ({ className = "", size = "medium" }: { className?: string; size?: LogoSize }) => {
   const { theme } = useTheme();
   
   // Size mapping
