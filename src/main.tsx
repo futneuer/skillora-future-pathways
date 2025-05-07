@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   
   // Make app installable
-  window.addEventListener('beforeinstallprompt', (e) => {
+  window.addEventListener('beforeinstallprompt', (e: BeforeInstallPromptEvent) => {
     // Store the event so it can be triggered later
     window.deferredInstallPrompt = e;
     console.log('App is installable');
