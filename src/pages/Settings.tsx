@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import BottomNavbar from "@/components/BottomNavbar";
@@ -13,6 +12,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger 
 } from "@/components/ui/collapsible";
+import SecretCodeInput from "@/components/SecretCodeInput";
+import { Toaster } from "@/components/ui/toaster";
 
 interface SettingsData {
   notifications: {
@@ -33,6 +34,7 @@ const Settings = () => {
   const { language, setLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [secretMessage, setSecretMessage] = useState("");
   const [settings, setSettings] = useState<SettingsData>({
     notifications: {
       email: true,
@@ -101,6 +103,8 @@ const Settings = () => {
       downloadData: "تنزيل بياناتي",
       saveChanges: "حفظ التغييرات",
       passwordUpdated: "تم تحديث كلمة المرور بنجاح",
+      secretCodes: "الرموز السرية",
+      enterSecretCode: "أدخل الرمز السري",
     },
     en: {
       title: "Settings",
@@ -130,10 +134,21 @@ const Settings = () => {
       downloadData: "Download My Data",
       saveChanges: "Save Changes",
       passwordUpdated: "Password updated successfully",
+      secretCodes: "Secret Codes",
+      enterSecretCode: "Enter Secret Code",
     }
   };
 
   const currentLanguage = content[language];
+  
+  const handleSecretCodeActivated = (message: string) => {
+    setSecretMessage(message);
+    
+    // Make the message disappear after 10 seconds
+    setTimeout(() => {
+      setSecretMessage("");
+    }, 10000);
+  };
   
   const toggleNotificationSetting = (setting: keyof typeof settings.notifications) => {
     setSettings({
@@ -213,6 +228,12 @@ const Settings = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
       <Header />
+      
+      {secretMessage && (
+        <div className="w-full bg-skillora-blue/20 dark:bg-skillora-blue/40 p-3 text-center animate-pulse">
+          <h2 className="text-xl font-bold text-skillora-blue dark:text-white">{secretMessage}</h2>
+        </div>
+      )}
       
       <div className="p-5">
         <h1 className="text-2xl font-bold mb-6 dark:text-white">{currentLanguage.title}</h1>
@@ -400,6 +421,12 @@ const Settings = () => {
           </div>
         </section>
         
+        {/* Secret Codes Section */}
+        <section className="mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-5">
+          <h2 className="text-lg font-semibold mb-4 dark:text-white">{currentLanguage.secretCodes}</h2>
+          <SecretCodeInput onCodeActivated={handleSecretCodeActivated} />
+        </section>
+        
         {/* Account Actions Section */}
         <section className="mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-5">
           <h2 className="text-lg font-semibold mb-4 dark:text-white">{currentLanguage.accountActions}</h2>
@@ -416,6 +443,7 @@ const Settings = () => {
       </div>
       
       <BottomNavbar />
+      <Toaster />
     </div>
   );
 };
