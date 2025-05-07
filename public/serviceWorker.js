@@ -1,5 +1,5 @@
 
-// This is a simplified service worker for Skillora PWA
+// This is an improved service worker for Skillora PWA with better HTTPS handling
 
 const CACHE_NAME = 'skillora-cache-v1';
 const urlsToCache = [
@@ -11,19 +11,21 @@ const urlsToCache = [
   '/static/js/main.js'
 ];
 
-// Install service worker and cache static assets
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Cache opened');
-        return cache.addAll(urlsToCache);
-      })
-  );
-});
-
-// Handle fetch events with cache-first strategy
+// Force HTTPS
 self.addEventListener('fetch', event => {
+  // Check if the request is for HTTP and can be converted to HTTPS
+  const url = new URL(event.request.url);
+  const isHTTP = url.protocol === 'http:';
+  const canBeHTTPS = !url.host.includes('localhost') && !url.host.includes('127.0.0.1');
+  
+  if (isHTTP && canBeHTTPS) {
+    // Convert HTTP to HTTPS
+    url.protocol = 'https:';
+    event.respondWith(fetch(new Request(url, event.request)));
+    return;
+  }
+  
+  // Standard cache strategy
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -51,9 +53,26 @@ self.addEventListener('fetch', event => {
               });
               
             return response;
+          })
+          .catch(error => {
+            console.log('Fetch failed; returning offline page instead.', error);
+            // You might want to return a cached fallback page here
           });
       })
   );
+});
+
+// Install service worker and cache static assets
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Cache opened');
+        return cache.addAll(urlsToCache);
+      })
+  );
+  // Force the waiting service worker to become active
+  self.skipWaiting();
 });
 
 // Clean up old caches when a new service worker is activated
@@ -69,6 +88,9 @@ self.addEventListener('activate', event => {
           }
         })
       );
+    }).then(() => {
+      // Take control of all clients as soon as it's activated
+      return self.clients.claim();
     })
   );
 });

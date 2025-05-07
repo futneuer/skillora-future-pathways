@@ -9,6 +9,11 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "0.0.0.0", // Allow external connections
     port: 8080,
+    cors: true, // Enable CORS for all origins
+  },
+  preview: {
+    port: 8080,
+    host: "0.0.0.0", // Allow external preview
   },
   plugins: [
     react(),

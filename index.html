@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0078D7" />
     <meta name="description" content="Skillora - Discover your future career path and skills" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
     <title>Skillora - Future Pathways</title>
@@ -22,6 +23,11 @@
               console.log('ServiceWorker registration failed: ', error);
             });
         });
+      }
+      
+      // Force HTTPS
+      if (window.location.protocol === 'http:' && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
+        window.location.href = window.location.href.replace('http:', 'https:');
       }
     </script>
   </head>
