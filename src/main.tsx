@@ -32,8 +32,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   
   // Check for connection speed to optimize content delivery
-  if (navigator.connection) {
-    const connection = navigator.connection as any;
+  if ('connection' in navigator) {
+    const connection = (navigator as any).connection;
     console.log('Connection type:', connection.effectiveType);
     
     if (connection.saveData) {

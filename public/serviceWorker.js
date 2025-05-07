@@ -11,15 +11,18 @@ const urlsToCache = [
   '/static/js/main.js'
 ];
 
-// Force HTTPS
+// Modified HTTPS handling for ply.gg domains
 self.addEventListener('fetch', event => {
-  // Check if the request is for HTTP and can be converted to HTTPS
+  // Special handling for ply.gg domains - don't force HTTPS
   const url = new URL(event.request.url);
+  const isPlyGg = url.host.includes('.ply.gg');
   const isHTTP = url.protocol === 'http:';
-  const canBeHTTPS = !url.host.includes('localhost') && !url.host.includes('127.0.0.1');
+  const canBeHTTPS = !url.host.includes('localhost') && 
+                     !url.host.includes('127.0.0.1') && 
+                     !isPlyGg;
   
   if (isHTTP && canBeHTTPS) {
-    // Convert HTTP to HTTPS
+    // Convert HTTP to HTTPS only for non-ply.gg domains
     url.protocol = 'https:';
     event.respondWith(fetch(new Request(url, event.request)));
     return;
@@ -56,7 +59,8 @@ self.addEventListener('fetch', event => {
           })
           .catch(error => {
             console.log('Fetch failed; returning offline page instead.', error);
-            // You might want to return a cached fallback page here
+            // Serve from cache as fallback for network errors
+            return caches.match('/index.html');
           });
       })
   );
