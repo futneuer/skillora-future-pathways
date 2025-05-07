@@ -217,12 +217,12 @@ const Settings = () => {
     });
   };
 
-  const toggleAdvancedSetting = (setting: keyof typeof settings.advanced!) => {
+  const toggleAdvancedSetting = (setting: keyof NonNullable<typeof settings.advanced>) => {
     setSettings({
       ...settings,
       advanced: {
         ...settings.advanced!,
-        [setting]: !settings.advanced![setting]
+        [setting]: !settings.advanced?.[setting]
       }
     });
   };
