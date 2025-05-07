@@ -15,7 +15,7 @@ const SecretCodeInput: React.FC<SecretCodeInputProps> = ({ onCodeActivated }) =>
   
   // Check for the secret code
   useEffect(() => {
-    if (code === "hasanfv") {
+    if (code === "hasanlovesbe") {
       onCodeActivated("Mira And Billie Eilish");
       toast({
         title: language === 'ar' ? "تم تنشيط الرمز السري" : "Secret Code Activated",
@@ -29,11 +29,11 @@ const SecretCodeInput: React.FC<SecretCodeInputProps> = ({ onCodeActivated }) =>
   return (
     <div className="w-full">
       <Input
-        type="text"
-        placeholder={language === 'ar' ? "أدخل الرمز السري" : "Enter Secret Code"}
+        type="password"
+        placeholder={language === 'ar' ? "******" : "******"}
         value={code}
         onChange={(e) => setCode(e.target.value)}
-        className="text-center"
+        className="text-center bg-transparent border-dashed"
       />
     </div>
   );

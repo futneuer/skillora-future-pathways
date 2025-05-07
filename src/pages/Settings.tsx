@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import BottomNavbar from "@/components/BottomNavbar";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Bell, Globe, Moon, Sun, User, Lock, Eye, EyeOff } from "lucide-react";
+import { Bell, Globe, Moon, Sun, User, Lock, Eye, EyeOff, Info, Shield, Download, Trash2, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/collapsible";
 import SecretCodeInput from "@/components/SecretCodeInput";
 import { Toaster } from "@/components/ui/toaster";
+import { useDeviceType } from "@/hooks/use-mobile";
 
 interface SettingsData {
   notifications: {
@@ -28,11 +29,17 @@ interface SettingsData {
   security: {
     twoFactorAuth: boolean;
   };
+  advanced?: {
+    enableBetaFeatures?: boolean;
+    debugMode?: boolean;
+  };
 }
 
 const Settings = () => {
   const { language, setLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const deviceType = useDeviceType();
+  const appVersion = "1.0.1";
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [secretMessage, setSecretMessage] = useState("");
   const [settings, setSettings] = useState<SettingsData>({
@@ -47,6 +54,10 @@ const Settings = () => {
     },
     security: {
       twoFactorAuth: false
+    },
+    advanced: {
+      enableBetaFeatures: false,
+      debugMode: false
     }
   });
   
@@ -103,8 +114,15 @@ const Settings = () => {
       downloadData: "تنزيل بياناتي",
       saveChanges: "حفظ التغييرات",
       passwordUpdated: "تم تحديث كلمة المرور بنجاح",
-      secretCodes: "الرموز السرية",
-      enterSecretCode: "أدخل الرمز السري",
+      secretCodes: "أدوات المطور",
+      enterSecretCode: "******",
+      advanced: "إعدادات متقدمة",
+      enableBetaFeatures: "تمكين ميزات بيتا",
+      debugMode: "وضع التصحيح",
+      appInfo: "معلومات التطبيق",
+      version: "الإصدار",
+      deviceType: "نوع الجهاز",
+      system: "النظام"
     },
     en: {
       title: "Settings",
@@ -134,8 +152,15 @@ const Settings = () => {
       downloadData: "Download My Data",
       saveChanges: "Save Changes",
       passwordUpdated: "Password updated successfully",
-      secretCodes: "Secret Codes",
-      enterSecretCode: "Enter Secret Code",
+      secretCodes: "Developer Tools",
+      enterSecretCode: "******",
+      advanced: "Advanced Settings",
+      enableBetaFeatures: "Enable Beta Features",
+      debugMode: "Debug Mode",
+      appInfo: "App Information",
+      version: "Version",
+      deviceType: "Device Type",
+      system: "System"
     }
   };
 
@@ -188,6 +213,16 @@ const Settings = () => {
       security: {
         ...settings.security,
         twoFactorAuth: !settings.security.twoFactorAuth
+      }
+    });
+  };
+
+  const toggleAdvancedSetting = (setting: keyof typeof settings.advanced!) => {
+    setSettings({
+      ...settings,
+      advanced: {
+        ...settings.advanced!,
+        [setting]: !settings.advanced![setting]
       }
     });
   };
@@ -421,10 +456,69 @@ const Settings = () => {
           </div>
         </section>
         
-        {/* Secret Codes Section */}
+        {/* Advanced Settings Section */}
         <section className="mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-5">
-          <h2 className="text-lg font-semibold mb-4 dark:text-white">{currentLanguage.secretCodes}</h2>
-          <SecretCodeInput onCodeActivated={handleSecretCodeActivated} />
+          <h2 className="text-lg font-semibold mb-4 dark:text-white flex items-center gap-2">
+            <Shield className="h-5 w-5 text-skillora-blue" />
+            {currentLanguage.advanced}
+          </h2>
+          
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="dark:text-white">{currentLanguage.enableBetaFeatures}</span>
+              <Switch 
+                checked={settings.advanced?.enableBetaFeatures || false}
+                onCheckedChange={() => toggleAdvancedSetting("enableBetaFeatures")}
+              />
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <span className="dark:text-white">{currentLanguage.debugMode}</span>
+              <Switch 
+                checked={settings.advanced?.debugMode || false}
+                onCheckedChange={() => toggleAdvancedSetting("debugMode")}
+              />
+            </div>
+          </div>
+        </section>
+        
+        {/* App Information Section */}
+        <section className="mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-5">
+          <h2 className="text-lg font-semibold mb-4 dark:text-white flex items-center gap-2">
+            <Info className="h-5 w-5 text-skillora-blue" />
+            {currentLanguage.appInfo}
+          </h2>
+          
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
+              <span className="text-gray-500 dark:text-gray-400">{currentLanguage.version}</span>
+              <span className="font-mono dark:text-white">{appVersion}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-500 dark:text-gray-400">{currentLanguage.deviceType}</span>
+              <span className="font-mono dark:text-white">{deviceType}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-500 dark:text-gray-400">{currentLanguage.system}</span>
+              <span className="font-mono dark:text-white">{navigator.platform}</span>
+            </div>
+          </div>
+        </section>
+        
+        {/* Secret Codes Section - Hidden in Developer Tools */}
+        <section className="mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-5 opacity-90 hover:opacity-100">
+          <Collapsible>
+            <CollapsibleTrigger className="flex items-center justify-between w-full">
+              <h2 className="text-lg font-semibold dark:text-white flex items-center gap-2">
+                <Code className="h-5 w-5 text-skillora-blue" />
+                {currentLanguage.secretCodes}
+              </h2>
+              <span className="text-gray-500">+</span>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="pt-4">
+              <SecretCodeInput onCodeActivated={handleSecretCodeActivated} />
+            </CollapsibleContent>
+          </Collapsible>
         </section>
         
         {/* Account Actions Section */}
@@ -432,10 +526,12 @@ const Settings = () => {
           <h2 className="text-lg font-semibold mb-4 dark:text-white">{currentLanguage.accountActions}</h2>
           
           <div className="space-y-3">
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+              <Download className="h-4 w-4" />
               {currentLanguage.downloadData}
             </Button>
-            <Button variant="destructive" className="w-full">
+            <Button variant="destructive" className="w-full flex items-center justify-center gap-2">
+              <Trash2 className="h-4 w-4" />
               {currentLanguage.deleteAccount}
             </Button>
           </div>
