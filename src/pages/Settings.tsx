@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import BottomNavbar from "@/components/BottomNavbar";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Bell, Globe, Moon, Sun, User, Lock, Eye, EyeOff, Info, Shield, Download, Trash2, Code } from "lucide-react";
+import { Bell, Globe, Moon, Sun, User, Lock, Eye, EyeOff, Info, Shield, Download, Trash2, Code, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -266,11 +266,14 @@ const Settings = () => {
       
       {secretMessage && (
         <div className="w-full bg-skillora-blue/20 dark:bg-skillora-blue/40 p-3 text-center animate-pulse">
-          <h2 className="text-xl font-bold text-skillora-blue dark:text-white">{secretMessage}</h2>
+          <h2 className="text-xl font-bold text-skillora-blue dark:text-white flex items-center justify-center gap-2">
+            {secretMessage}
+            <Heart className="h-5 w-5 text-red-500 animate-pulse" fill="currentColor" />
+          </h2>
         </div>
       )}
       
-      <div className="p-5">
+      <div className="p-5 max-w-md mx-auto">
         <h1 className="text-2xl font-bold mb-6 dark:text-white">{currentLanguage.title}</h1>
         
         {/* Appearance Section */}

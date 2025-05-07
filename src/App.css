@@ -6,6 +6,7 @@
   padding: 0;
   text-align: center;
   min-height: 100vh;
+  overscroll-behavior: none; /* Prevent pull-to-refresh on mobile */
 }
 
 body {
@@ -92,15 +93,16 @@ body {
     justify-content: center !important;
   }
   
-  /* Prevent text size adjustment on orientation change */
-  html, body {
-    -webkit-text-size-adjust: 100%;
-  }
-  
-  /* Improve tap target sizes */
+  /* Better touch targets */
   button, a, input, select, textarea {
     min-height: 44px;
     min-width: 44px;
+    padding: 8px;
+  }
+  
+  /* Prevent text size adjustment on orientation change */
+  html, body {
+    -webkit-text-size-adjust: 100%;
   }
 }
 
@@ -129,4 +131,39 @@ body {
     color: #000;
     background: #fff;
   }
+}
+
+/* IP access improvements */
+@media screen and (max-width: 320px) {
+  /* Extremely small screens like feature phones */
+  .container-responsive {
+    padding: 0 0.5rem;
+  }
+  
+  button, .button {
+    padding: 0.5rem !important;
+  }
+  
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  h2 {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* Fix for viewport heights on iOS */
+.min-h-screen {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+/* Optimize for slower connections */
+img, video {
+  loading: lazy;
 }

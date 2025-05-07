@@ -22,6 +22,8 @@ window.updateDocumentLanguage = function(language: string) {
 window.addEventListener('DOMContentLoaded', () => {
   console.log('Device width:', window.innerWidth);
   console.log('Device type:', window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1024 ? 'tablet' : 'desktop');
+  console.log('Running on port:', window.location.port || (window.location.protocol === 'https:' ? '443' : '80'));
+  console.log('IP access enabled on port 8020');
   
   // Set initial viewport meta for optimal display on all devices
   const viewportMeta = document.querySelector('meta[name="viewport"]');
@@ -29,9 +31,25 @@ window.addEventListener('DOMContentLoaded', () => {
     viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
   }
   
-  // Check for secure connection
-  if (window.location.protocol === 'http:' && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
-    // Redirect to HTTPS
-    window.location.href = window.location.href.replace('http:', 'https:');
+  // Check for connection speed to optimize content delivery
+  if (navigator.connection) {
+    const connection = navigator.connection as any;
+    console.log('Connection type:', connection.effectiveType);
+    
+    if (connection.saveData) {
+      console.log('Data saver mode is enabled');
+      document.body.classList.add('data-saver');
+    }
+    
+    if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+      document.body.classList.add('slow-connection');
+    }
   }
+  
+  // Make app installable
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Store the event so it can be triggered later
+    window.deferredInstallPrompt = e;
+    console.log('App is installable');
+  });
 });
