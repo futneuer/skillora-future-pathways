@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
   console.log('Device width:', window.innerWidth);
   console.log('Device type:', window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1024 ? 'tablet' : 'desktop');
   console.log('Running on port:', window.location.port || (window.location.protocol === 'https:' ? '443' : '80'));
-  console.log('IP access enabled on port 8020');
+  console.log('IP access enabled on port 8080');
   
   // Set initial viewport meta for optimal display on all devices
   const viewportMeta = document.querySelector('meta[name="viewport"]');
