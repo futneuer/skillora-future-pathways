@@ -8,19 +8,25 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig({
   server: {
     host: "0.0.0.0", // Allow external connections
-    port: 8080, // Use port 8080 as required
+    port: 8010, // Changed port to 8010 as requested
     cors: true, // Enable CORS for all origins
-    strictPort: true, // Don't try another port if 8080 is taken
-    https: true, // Enable HTTPS for development (using auto-generated cert)
+    strictPort: true, // Don't try another port if 8010 is taken
+    https: {
+      // Use proper HTTPS configuration
+      minVersion: 'TLSv1.2', // Minimum TLS version
+    },
     hmr: {
-      clientPort: 8080, // Ensure proper HMR on port forwarded environments
+      clientPort: 8010, // Ensure proper HMR on port forwarded environments
       protocol: 'wss', // Use secure WebSockets
     },
   },
   preview: {
-    port: 8080, // Use port 8080 for preview as well
+    port: 8010, // Use port 8010 for preview as well
     host: "0.0.0.0", // Allow external preview
-    https: true, // Enable HTTPS for preview
+    https: {
+      // Use proper HTTPS configuration for preview
+      minVersion: 'TLSv1.2', // Minimum TLS version
+    },
   },
   plugins: [
     react(),
